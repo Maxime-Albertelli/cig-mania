@@ -14,7 +14,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void Start()
     {
-        SelectUpgrade(FindObjectOfType<Upgrade>());
+        SelectUpgrade(FindAnyObjectByType<Upgrade>());
     }
 
     public void BuyUpgrade()
