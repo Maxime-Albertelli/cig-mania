@@ -2,6 +2,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Manage the click of the user for the upgrade
+/// </summary>
 public class UpgradeManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text upgradeName;
@@ -19,9 +22,11 @@ public class UpgradeManager : MonoBehaviour
 
     public void BuyUpgrade()
     {
+        // The player can't buy an upgrade without the correct amount of money
         if (GameManager.Instance.money < _selectedUpgrade.upgradeCost[_selectedUpgrade.actualLevel])
             return;
 
+        // Remove required money and add a level to the selected upgrade
         GameManager.Instance.money -= _selectedUpgrade.upgradeCost[_selectedUpgrade.actualLevel];
         _selectedUpgrade.actualLevel++;
         ApplyUpgrade(_selectedUpgrade);
@@ -60,18 +65,22 @@ public class UpgradeManager : MonoBehaviour
         var cigarette = GameManager.Instance.cigarette;
         var text = "";
 
+        // Text for prices
         if (upgrade.prices.Length > upgrade.actualLevel)
             text +=
                 $"Price: {cigarette.price} -> {cigarette.price + upgrade.prices[upgrade.actualLevel]}\n";
 
+        // Text for toxicities
         if (upgrade.toxicities.Length > upgrade.actualLevel)
             text +=
                 $"Toxicity: {cigarette.toxicity} -> {cigarette.toxicity * upgrade.toxicities[upgrade.actualLevel]}\n";
 
+        // Text for addictions
         if (upgrade.addictions.Length > upgrade.actualLevel)
             text +=
                 $"Addiction: {cigarette.addiction} -> {cigarette.addiction + (1 - cigarette.addiction) / upgrade.addictions[upgrade.actualLevel]}\n";
 
+        // Text for influences
         if (upgrade.influences.Length > upgrade.actualLevel)
             text +=
                 $"Influence: {cigarette.influence} -> {cigarette.influence * upgrade.influences[upgrade.actualLevel]}\n";

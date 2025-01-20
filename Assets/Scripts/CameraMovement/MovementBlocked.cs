@@ -2,6 +2,9 @@
 
 namespace CameraMovement
 {
+    /// <summary>
+    /// Restrain camera movement
+    /// </summary>
     public class MovementBlocked : Movement
     {
         [SerializeField] private float positionYMax = 5f;

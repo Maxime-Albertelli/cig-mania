@@ -2,6 +2,9 @@
 
 namespace CameraMovement
 {
+    /// <summary>
+    /// Camera movement
+    /// </summary>
     public class Movement : MonoBehaviour
     {
         [SerializeField] private float moveSpeed = 1f;
@@ -23,8 +26,6 @@ namespace CameraMovement
 
         protected void Update()
         {
-            //Debug.Log("Update");
-
             if (Input.touchCount != 2) return;
 
 

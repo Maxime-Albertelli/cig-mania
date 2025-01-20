@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.U2D;
 
+/// <summary>
+/// Informations about a region
+/// </summary>
 public class Region : MonoBehaviour
 {
     [field:SerializeField] public string regionName { get; private set; }
@@ -26,7 +29,7 @@ public class Region : MonoBehaviour
     {
         var percentage = (float)addictedPopulation / population;
         var addictColor = Color.red;
-        var selectColor = Color.white;
+        var selectColor = Color.white; // Color on click
         selectColor.a = 0.25f;
         addictColor.a = percentage * MaxAlpha;
         if (isSelected)
@@ -44,8 +47,8 @@ public class Region : MonoBehaviour
     {
         Tooltip.instance.UpdateRegion(this);
         Tooltip.instance.Show();
-        //Désactiver le clignotement sur les autres régions
-        for(int i = 0; i < manager.regions.Length; ++i)
+        // Disable blink on other regions
+        for (int i = 0; i < manager.regions.Length; ++i)
         {
             manager.regions[i].isSelected = false;
         }

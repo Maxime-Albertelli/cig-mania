@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Informations about company
+/// </summary>
 public class Company : MonoBehaviour
 {
     public string companyName;

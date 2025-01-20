@@ -1,5 +1,8 @@
 using System;
 
+/// <summary>
+/// Informations about cigarette
+/// </summary>
 [Serializable]
 public class Cigarette
 {
