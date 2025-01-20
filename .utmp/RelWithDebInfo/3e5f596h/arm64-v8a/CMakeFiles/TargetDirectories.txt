@@ -1,0 +1,5 @@
+C:/Users/maxim/Documents/CNAM IEM/cig-mania/.utmp/RelWithDebInfo/3e5f596h/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/maxim/Documents/CNAM IEM/cig-mania/.utmp/RelWithDebInfo/3e5f596h/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/maxim/Documents/CNAM IEM/cig-mania/.utmp/RelWithDebInfo/3e5f596h/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/Users/maxim/Documents/CNAM IEM/cig-mania/.utmp/RelWithDebInfo/3e5f596h/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+C:/Users/maxim/Documents/CNAM IEM/cig-mania/.utmp/RelWithDebInfo/3e5f596h/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
