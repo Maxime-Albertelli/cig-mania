@@ -5,7 +5,6 @@ using UnityEngine.Audio;
 //list of sound types for different events
 public enum SoundType
 {
-    CLICK_GAME,
     UPGRADE_DENIED,
     UPGRADE,
 }
