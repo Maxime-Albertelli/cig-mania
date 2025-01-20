@@ -2748,7 +2748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1539625666
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8922,7 +8922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2538687501999926010, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2538687501999926010, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: m_TagString
@@ -17883,7 +17883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2016224836
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18071,7 +18071,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2035360838128910555, guid: a558cd9a61bbd83479c6444365d683d8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8475447674828042985, guid: a558cd9a61bbd83479c6444365d683d8, type: 3}
       propertyPath: m_Pivot.x
@@ -18336,7 +18336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5942653835691692463, guid: 05df8c3837eb716498ecc3e72269d8e2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6673288700339966281, guid: 05df8c3837eb716498ecc3e72269d8e2, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
