@@ -54,7 +54,7 @@ public class Tooltip : MonoBehaviour
             unlockButton.gameObject.SetActive(true);
             addictedPopulation.gameObject.SetActive(false);
             regionName.gameObject.SetActive(false);
-            price.text = $"{region.regionName} : Unlock for {GameManager.ParseNumber(region.population / 1000)} $";
+            price.text = $"{region.regionName} : Unlock for {GameManager.ParseNumber(region.population / 1000)} €";
             return;
         }
 

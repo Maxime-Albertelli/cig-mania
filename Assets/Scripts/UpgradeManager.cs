@@ -55,7 +55,7 @@ public class UpgradeManager : MonoBehaviour
         _selectedUpgrade = upgrade;
         upgradeName.text = upgrade.upgradeName;
         description.text = upgrade.description;
-        price.text = $"Upgrade\ncost : {GameManager.ParseNumber(upgrade.upgradeCost[upgrade.actualLevel])}$";
+        price.text = $"Upgrade\ncost : {GameManager.ParseNumber(upgrade.upgradeCost[upgrade.actualLevel])}€";
 
         var cigarette = GameManager.Instance.cigarette;
         var text = "";

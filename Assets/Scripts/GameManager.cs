@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         // parse Millions/Billions
         deathsText.text = $"Deaths: {ParseNumber(_totalDeaths)}";
         addictedText.text = $"Addicted: {ParseNumber(_totalAddicted)}";
-        moneyText.text = $"Money: {ParseNumber(money)}$";   
+        moneyText.text = $"Money: {ParseNumber(money)}€";   
     }
 
     /// <summary>
