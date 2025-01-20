@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Tooltip regionTooltip;
 
     [SerializeField] private GameObject upgradePanel;
+
+    [SerializeField] private GameObject prixUpgradePanel;
+    [SerializeField] private GameObject taxeUpgradePanel;
+    [SerializeField] private GameObject influenceUpgradePanel;
+    [SerializeField] private GameObject addictionUpgradePanel;
+
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private GameObject particleClick;
     
@@ -43,6 +49,12 @@ public class GameManager : MonoBehaviour
     public void ShowUpgradePanel()
     {
         upgradePanel.SetActive(true);
+
+        prixUpgradePanel.SetActive(false);
+        taxeUpgradePanel.SetActive(false);
+        influenceUpgradePanel.SetActive(false);
+        addictionUpgradePanel.SetActive(false);
+
         Tooltip.instance.Hide();
     }
 
