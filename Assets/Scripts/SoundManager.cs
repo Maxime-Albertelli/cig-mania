@@ -5,8 +5,8 @@ using UnityEngine.Audio;
 //list of sound types for different events
 public enum SoundType
 {
-    CLICK_START,
     CLICK_GAME,
+    UPGRADE_DENIED,
     UPGRADE,
 }
 
@@ -35,7 +35,7 @@ public class SoundManager : MonoBehaviour
     //Play sound - by default the volume is 100%
     public static void PlaySound(SoundType sound, float volume = 1)
     {
-        //Play a given sound type once at specified volume
+        //Play a given sound type once, at specified volume
         //We look for the corresponding audioclip in soundList
         instance.audioSource.PlayOneShot(instance.soundList[(int)sound], volume);
     }

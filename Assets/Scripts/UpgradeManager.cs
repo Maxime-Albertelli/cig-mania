@@ -20,12 +20,18 @@ public class UpgradeManager : MonoBehaviour
     public void BuyUpgrade()
     {
         if (GameManager.Instance.money < _selectedUpgrade.upgradeCost[_selectedUpgrade.actualLevel])
+        {
+            //Play UPGRADE_DENIED sound if upgrade unsuccessful
+            SoundManager.PlaySound(SoundType.UPGRADE_DENIED);
             return;
+        }
 
         GameManager.Instance.money -= _selectedUpgrade.upgradeCost[_selectedUpgrade.actualLevel];
         _selectedUpgrade.actualLevel++;
         ApplyUpgrade(_selectedUpgrade);
         SelectUpgrade(_selectedUpgrade);
+        //Play UPGRADE sound if upgrade successful
+        SoundManager.PlaySound(SoundType.UPGRADE);
     }
 
     private void ApplyUpgrade(Upgrade upgrade)
