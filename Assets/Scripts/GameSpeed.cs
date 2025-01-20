@@ -7,13 +7,11 @@ using UnityEngine;
 /// f.e : if speed == 1 then new speed == 2 
 /// if speed == 2 then new speed == 0 (pause)
 /// </summary>
-
 public class GameSpeed : MonoBehaviour
 {
     int speedValue = 1;
     [SerializeField] private TMP_Text buttonText; //don't forget to put the button's which change game speed label
 
-    //
     public void gameSpeed()
     {
         switch (speedValue)

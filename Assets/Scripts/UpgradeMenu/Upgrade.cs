@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Informations of an upgrade
+/// </summary>
 public class Upgrade : MonoBehaviour
 {
     public string upgradeName;

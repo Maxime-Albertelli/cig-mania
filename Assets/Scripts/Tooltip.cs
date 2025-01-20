@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Information about a region on click
+/// </summary>
 public class Tooltip : MonoBehaviour
 {
     public static Tooltip instance;
@@ -48,6 +51,7 @@ public class Tooltip : MonoBehaviour
         
         region = newRegion;
 
+        // When the region isn't buy
         if (region.addictedPopulation == 0)
         {
             price.gameObject.SetActive(true);
@@ -58,6 +62,7 @@ public class Tooltip : MonoBehaviour
             return;
         }
 
+        // When the region is buy
         price.gameObject.SetActive(false);
         unlockButton.gameObject.SetActive(false);
         addictedPopulation.gameObject.SetActive(true);
@@ -75,7 +80,8 @@ public class Tooltip : MonoBehaviour
     public void UnlockRegion()
     {
         var cost = region.population / 1000;
-        
+
+        // The user can't unlock a region if he don't have enough money
         if (GameManager.Instance.money < cost)
         {
             price.text = "Not enough money !";

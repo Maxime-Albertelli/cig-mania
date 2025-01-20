@@ -2,6 +2,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Game Manager
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public Cigarette cigarette;
@@ -82,6 +85,7 @@ public class GameManager : MonoBehaviour
             var deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
             _totalDeaths += (ulong)deaths;
 
+            // Evolution of population
             region.addictedPopulation -= (ulong)deaths;
             region.addictedPopulation -= (ulong)userLoss;
             region.population -= (ulong)deaths;
@@ -130,6 +134,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        // On Click
         if (Input.GetMouseButtonDown(0))
         {
             var position = Camera.main.ScreenToWorldPoint(Input.mousePosition);

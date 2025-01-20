@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Homescreen script
+/// </summary>
 public class Homescreen : MonoBehaviour
 {
     
