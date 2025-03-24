@@ -46,18 +46,6 @@ public class GameManager : MonoBehaviour
         inGameUI.SetActive(false);
     }
 
-    public void ShowUpgradePanel()
-    {
-        upgradePanel.SetActive(true);
-
-        prixUpgradePanel.SetActive(false);
-        taxeUpgradePanel.SetActive(false);
-        influenceUpgradePanel.SetActive(false);
-        addictionUpgradePanel.SetActive(false);
-
-        Tooltip.instance.Hide();
-    }
-
     public void StartGame()
     {
         Instance = this;
