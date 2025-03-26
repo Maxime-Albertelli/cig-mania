@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5037858087418998642}
   - component: {fileID: 4009449013810075140}
+  - component: {fileID: 19736672357694115}
   m_Layer: 5
   m_Name: Prix Upgrade Panel
   m_TagString: Untagged
@@ -159,6 +160,24 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 10000, y: 10000}
   m_EdgeRadius: 0
+--- !u!114 &19736672357694115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6640941911389637272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc5a27f932e24941b9b5068bbf3cf64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradePanel: {fileID: 0}
+  prixUpgradePanel: {fileID: 6640941911389637272}
+  upgradeName: {fileID: 0}
+  description: {fileID: 0}
+  price: {fileID: 0}
+  preview: {fileID: 0}
 --- !u!1 &9018857218424201151
 GameObject:
   m_ObjectHideFlags: 0
