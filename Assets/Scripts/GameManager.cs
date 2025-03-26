@@ -22,13 +22,6 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private Tooltip regionTooltip;
 
-    [SerializeField] private GameObject upgradePanel;
-
-    [SerializeField] private GameObject prixUpgradePanel;
-    [SerializeField] private GameObject taxeUpgradePanel;
-    [SerializeField] private GameObject influenceUpgradePanel;
-    [SerializeField] private GameObject addictionUpgradePanel;
-
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private GameObject particleClick;
     
@@ -38,24 +31,15 @@ public class GameManager : MonoBehaviour
     private ulong _totalAddicted;
 
     private string _name;
+
+    //Game speed
+    public int speedValue = 1;
     public static GameManager Instance { get; private set; }
 
 
     private void Start()
     {
         inGameUI.SetActive(false);
-    }
-
-    public void ShowUpgradePanel()
-    {
-        upgradePanel.SetActive(true);
-
-        prixUpgradePanel.SetActive(false);
-        taxeUpgradePanel.SetActive(false);
-        influenceUpgradePanel.SetActive(false);
-        addictionUpgradePanel.SetActive(false);
-
-        Tooltip.instance.Hide();
     }
 
     public void StartGame()
@@ -76,24 +60,29 @@ public class GameManager : MonoBehaviour
         {
             if (!region.isBuyingCigarettes) continue;
 
-            var userLoss = (int)(region.addictedPopulation * (1 - cigarette.addiction));
+            // When speedValue is equal to zero, the game is on pause
+            if (speedValue != 0)
+            {
+                var userLoss = (int)(region.addictedPopulation * (1 - cigarette.addiction));
 
-            var newUsers = Mathf.Ceil(
-                Mathf.Sqrt(region.addictedPopulation) * cigarette.influence
-            );
+                var newUsers = Mathf.Ceil(
+                    Mathf.Sqrt(region.addictedPopulation) * cigarette.influence
+                );
 
-            var deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
-            _totalDeaths += (ulong)deaths;
+                var deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
+                _totalDeaths += (ulong)deaths;
 
-            // Evolution of population
-            region.addictedPopulation -= (ulong)deaths;
-            region.addictedPopulation -= (ulong)userLoss;
-            region.population -= (ulong)deaths;
-            region.addictedPopulation += (ulong)newUsers;
-            if (region.addictedPopulation > region.population)
-                region.addictedPopulation = region.population;
+                // Evolution of population
+                region.addictedPopulation -= (ulong)deaths;
+                region.addictedPopulation -= (ulong)userLoss;
+                region.population -= (ulong)deaths;
+                region.addictedPopulation += (ulong)newUsers;
+                if (region.addictedPopulation > region.population)
+                    region.addictedPopulation = region.population;
 
-            money += (ulong)(userLoss * cigarette.price);
+                money += (ulong)(userLoss * cigarette.price);
+            }
+            
 
             region.UpdateVisuals();
 
@@ -101,9 +90,9 @@ public class GameManager : MonoBehaviour
         }
 
         // parse Millions/Billions
-        deathsText.text = $"Deaths: {ParseNumber(_totalDeaths)}";
-        addictedText.text = $"Addicted: {ParseNumber(_totalAddicted)}";
-        moneyText.text = $"Money: {ParseNumber(money)}€";   
+        deathsText.text = $"Morts: {ParseNumber(_totalDeaths)}";
+        addictedText.text = $"Accros: {ParseNumber(_totalAddicted)}";
+        moneyText.text = $"Argent: {ParseNumber(money)}€";   
     }
 
     /// <summary>

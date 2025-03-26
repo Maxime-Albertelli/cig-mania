@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6904e9c41d78d4e94c436df9cdff55, type: 3}
+  m_Name: Price II
+  m_EditorClassIdentifier: 
+  upgradeData:
+  - statType: 0
+    skillIncreaseAmount: 50
+    isPercentage: 1
+  isAbility: 0
+  upgradeName: Price II
+  overrideDescription: 0
+  description: System.Collections.Generic.List`1[UpgradeData] augmente Price de 50%.
+  upgradePrerequisites:
+  - {fileID: 11400000, guid: 3cb60c5b854e88340862df4295f014aa, type: 2}
+  tier: 1
+  cost: 1000

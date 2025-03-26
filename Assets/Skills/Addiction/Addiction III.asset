@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6904e9c41d78d4e94c436df9cdff55, type: 3}
+  m_Name: Addiction III
+  m_EditorClassIdentifier: 
+  upgradeData:
+  - statType: 2
+    skillIncreaseAmount: 50
+    isPercentage: 1
+  - statType: 0
+    skillIncreaseAmount: 10
+    isPercentage: 1
+  - statType: 1
+    skillIncreaseAmount: 5
+    isPercentage: 1
+  isAbility: 0
+  upgradeName: Addiction III
+  overrideDescription: 0
+  description: Addiction III augmente Addiction de 50%, Prix de 10%, Toxicite de
+    5%.
+  upgradePrerequisites:
+  - {fileID: 11400000, guid: f83d5f10544c60b4b9de4b6a9087aaac, type: 2}
+  tier: 2
+  cost: 1200
