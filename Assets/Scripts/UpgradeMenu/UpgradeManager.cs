@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Manage the click of the user for the upgrade
+/// Manage the panels and apply all the effect of an upgrade
 /// </summary>
 public class UpgradeManager : MonoBehaviour
 {
@@ -18,6 +18,9 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private GameObject taxeUpgradePanel;
     [SerializeField] private GameObject influenceUpgradePanel;
     [SerializeField] private GameObject addictionUpgradePanel;
+    [Space(5)]
+
+    [Header("Text panel menu")]
     [SerializeField] private TMP_Text menuTitle;
     [SerializeField] private TMP_Text menuDescription;
     [Space(10)]
@@ -42,10 +45,12 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TMP_Text addictionDescription;
     [Space(10)]
 
+    // List of all unlocked upgrade
     private List<UpgradeSO> unlockedUpgrade = new List<UpgradeSO>();
 
     public static UpgradeManager instance = null;
 
+    // Make this script a singleton
     private void Awake()
     {
         if (instance == null)
@@ -58,10 +63,10 @@ public class UpgradeManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-
+ 
     private void Start()
     {
-        // Initialisation of the description
+        // Initiate the description and title of each panel
         menuTitle.text = "Gestion des produits";
         menuDescription.text = "Bonjour patron ! Bienvenu dans le département de R&D. Ici vous pouvez investir dans différents points de recherches.";
 
@@ -86,6 +91,10 @@ public class UpgradeManager : MonoBehaviour
             "\nSi on augmente la dose, le gout est meilleur, aucun risque sur la santé, n'est ce pas ?";
     }
 
+    /// <summary>
+    /// When a upgrade is selected, check all prerequisites if yes, unlock Upgrade, in all cases Change Description
+    /// </summary>
+    /// <param name="upgrade"></param>
     public void SelectUpgrade(UpgradeSO upgrade)
     {
         if (PreReqsMet(upgrade))
@@ -96,6 +105,10 @@ public class UpgradeManager : MonoBehaviour
         ChangeDescription(upgrade);
     }
 
+    /// <summary>
+    /// Change the description and the title on the active panel depending of the upgrade
+    /// </summary>
+    /// <param name="upgrade"></param>
     private void ChangeDescription(UpgradeSO upgrade)
     {
         if (prixUpgradePanel.activeSelf)
@@ -123,6 +136,11 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Apply effect depending of the upgrade' Stat Type
+    /// </summary>
+    /// <param name="upgrade"></param>
+    /// <exception cref="ArgumentOutOfRangeException">Throw an exception if a new state type has been added but not in the switch case</exception>
     private void ApplyEffect(UpgradeSO upgrade)
     {
         /*
@@ -172,6 +190,11 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Modify ciragette's stat, wether it's a percentage or flat 
+    /// </summary>
+    /// <param name="stat">The stat's reference, for instance, addiction</param>
+    /// <param name="data">The upgrade's data</param>
     private void ModifyStat(ref float stat, UpgradeData data)
     {
         bool isPercent = data.isPercentage;
@@ -194,31 +217,43 @@ public class UpgradeManager : MonoBehaviour
     /// <summary>
     /// Verify if the upgrade is already obtained
     /// </summary>
-    /// <param name="upgrade"></param>
-    /// <returns></returns>
+    /// <param name="upgrade">The Upgrade selected</param>
+    /// <returns>True if the upgrade is in unlockedUpgrade list</returns>
     public bool IsUpgradeUnlocked(UpgradeSO upgrade)
     {
         return unlockedUpgrade.Contains(upgrade);
     }
 
+    /// <summary>
+    /// Check if an upgrade is purchasable.
+    /// Check if already purchased, check if there's no upgrade prerequisites or if all upgradePrerequisites are unlocked
+    /// Do not check if enough money to buy it.
+    /// </summary>
+    /// <param name="upgrade"></param>
+    /// <returns>True if all prerequisites are met</returns>
     public bool PreReqsMet(UpgradeSO upgrade)
     {
+        bool preReqsMet = false;
         Debug.Log("Already have this one");
-        return upgrade.upgradePrerequisites.Count == 0 || upgrade.upgradePrerequisites.All(unlockedUpgrade.Contains);
+        if (!upgrade.purchased)
+        {
+            preReqsMet = upgrade.upgradePrerequisites.Count == 0 || upgrade.upgradePrerequisites.All(unlockedUpgrade.Contains);
+        }
+        return preReqsMet;
     }
 
     /// <summary>
     /// Verify if the upgrade is affordable
     /// </summary>
     /// <param name="upgrade"></param>
-    /// <returns></returns>
+    /// <returns>True if enough to buy the upgrade</returns>
     public bool CanAffordUpgrade(UpgradeSO upgrade)
     {
         return GameManager.Instance.money >= upgrade.cost;
     }
 
     /// <summary>
-    /// Obtain the upgrade
+    /// First, check if enough money to buy, if yes, apply its effect then add it to the unlockedUpgrade list
     /// </summary>
     /// <param name="upgrade"></param>
     public void UnlockUpgrade(UpgradeSO upgrade)

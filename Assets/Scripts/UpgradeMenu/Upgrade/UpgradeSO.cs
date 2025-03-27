@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
+/// <summary>
+/// Scriptable Object that represent an upgrade. It generates automaticaly a description depending on the effect and on the percent or not.
+/// </summary>
 [CreateAssetMenu(fileName = "New Upgrade", menuName = "Upgrade System/New Upgrade", order = 0)]
 public class UpgradeSO : ScriptableObject
 {
@@ -14,6 +17,7 @@ public class UpgradeSO : ScriptableObject
     public List<UpgradeSO> upgradePrerequisites = new List<UpgradeSO>();
     public int tier;
     public float cost;
+    public bool purchased;
 
     private void OnValidate()
     {
