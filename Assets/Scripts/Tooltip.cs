@@ -9,13 +9,14 @@ using UnityEngine.UI;
 /// </summary>
 public class Tooltip : MonoBehaviour
 {
-    public static Tooltip instance;
-    private Region region;
     [SerializeField] private Button unlockButton;
     [SerializeField] private TMP_Text price;
+
     public TMP_Text addictedPopulation;
     public TMP_Text regionName;
+    public static Tooltip instance;
 
+    private Region region;
 
     private void Awake()
     {

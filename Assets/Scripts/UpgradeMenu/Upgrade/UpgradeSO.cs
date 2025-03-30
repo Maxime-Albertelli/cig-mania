@@ -9,14 +9,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Upgrade", menuName = "Upgrade System/New Upgrade", order = 0)]
 public class UpgradeSO : ScriptableObject
 {
+    [Tooltip("List of all attributs affected")]
     public List<UpgradeData> upgradeData = new List<UpgradeData>();
+    [Tooltip("Check if percentage, uncheck for flat values")]
     public bool isAbility;
+    [Tooltip("Upgrade's name")]
     public string upgradeName;
+    [Tooltip("Check if you want your own description, uncheck for the automatic description")]
     public bool overrideDescription;
+    [Tooltip("Upgrade's descriptions")]
     [TextArea(1,4)] public string description;
+    [Tooltip("List of all the necessary upgrades")]
     public List<UpgradeSO> upgradePrerequisites = new List<UpgradeSO>();
+    [Tooltip("Upgrade's tier")]
     public int tier;
+    [Tooltip("Upgrade's cost, keep in mind that it has to coincide with your money")]
     public float cost;
+    [Tooltip("Check if upgrade already brought")]
     public bool purchased;
 
     private void OnValidate()

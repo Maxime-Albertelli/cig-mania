@@ -10,38 +10,53 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     [Header("Panel Menu Upgrade")]
+    [Tooltip("The game object used for the upgrade menu")]
     [SerializeField] private GameObject upgradePanel;
     [Space(10)]
 
     [Header("Panel upgrades Menu")]
+    [Tooltip("The game object used for the price upgrade menu")]
     [SerializeField] private GameObject prixUpgradePanel;
+    [Tooltip("The game object used for the taxe upgrade menu")]
     [SerializeField] private GameObject taxeUpgradePanel;
+    [Tooltip("The game object used for the influence upgrade menu")]
     [SerializeField] private GameObject influenceUpgradePanel;
+    [Tooltip("The game object used for the addiction upgrade menu")]
     [SerializeField] private GameObject addictionUpgradePanel;
     [Space(5)]
 
     [Header("Text panel menu")]
+    [Tooltip("The title text of the upgrade menu")]
     [SerializeField] private TMP_Text menuTitle;
+    [Tooltip("The description text of the upgrade menu")]
     [SerializeField] private TMP_Text menuDescription;
     [Space(10)]
 
     [Header("Text panel price")]
+    [Tooltip("The title text of the price upgrade menu")]
     [SerializeField] private TMP_Text priceTitle;
+    [Tooltip("The title text of the price upgrade menu")]
     [SerializeField] private TMP_Text priceDescription;
     [Space(10)]
 
     [Header("Text panel taxes")]
+    [Tooltip("The title text of the taxe upgrade menu")]
     [SerializeField] private TMP_Text taxeTitle;
+    [Tooltip("The description text of the taxe upgrade menu")]
     [SerializeField] private TMP_Text taxeDescription;
     [Space(10)]
 
     [Header("Text panel influence")]
+    [Tooltip("The title text of the influence upgrade menu")]
     [SerializeField] private TMP_Text influenceTitle;
+    [Tooltip("The description text of the influence upgrade menu")]
     [SerializeField] private TMP_Text influenceDescription;
     [Space(10)]
 
     [Header("Text panel addiction")]
+    [Tooltip("The title text of the addiction upgrade menu")]
     [SerializeField] private TMP_Text addictionTitle;
+    [Tooltip("The description text of the addiction upgrade menu")]
     [SerializeField] private TMP_Text addictionDescription;
     [Space(10)]
 

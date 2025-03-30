@@ -7,15 +7,21 @@ using UnityEngine.UI;
 /// Change the speed of the game onclick
 /// f.e : if speed == 1 then new speed == 2 
 /// if speed == 2 then new speed == 0 (pause)
+/// When the game is paused, only the values are paused
+/// Otherwise, we wouldn't be able to detect click event
 /// </summary>
 public class GameSpeed : MonoBehaviour
 {
     //int speedValue = 1;
     private GameManager manager;
 
+    [Header("Images Game Speed")]
     [SerializeField] private RawImage imageMenuPause; //don't forget to put the button's which change game speed label
+    [Tooltip("Image of the speed value : 2")]
     [SerializeField] private Texture vitesseDeux;
+    [Tooltip("Image of the speed value : 1")]
     [SerializeField] private Texture vitesseUn;
+    [Tooltip("Image of pause game")]
     [SerializeField] private Texture pause;
 
     private void Awake()
@@ -23,6 +29,12 @@ public class GameSpeed : MonoBehaviour
         manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
+    /// <summary>
+    /// Check the speed value in game manager
+    /// 0 : pause game
+    /// 1 : normal speed
+    /// 2 : Fast speed
+    /// </summary>
     public void gameSpeed()
     {
         switch (manager.speedValue)
