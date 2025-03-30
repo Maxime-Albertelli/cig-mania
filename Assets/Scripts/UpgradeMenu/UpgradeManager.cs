@@ -261,11 +261,13 @@ public class UpgradeManager : MonoBehaviour
         if (!CanAffordUpgrade(upgrade))
         {
             Debug.Log("Not enought money");
+            SoundManager.PlaySound(SoundType.UPGRADE_DENIED);
             return;
         }
         ApplyEffect(upgrade);
         unlockedUpgrade.Add(upgrade);
         GameManager.Instance.money -= (ulong)upgrade.cost;
         Debug.Log("Skill obtained : " + upgrade.name);
+        SoundManager.PlaySound(SoundType.UPGRADE);
     }
 }
