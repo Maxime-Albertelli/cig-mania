@@ -119,6 +119,33 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &3766285 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40d5aad0817bfc44eaf400106106a5c2, type: 3}
+  m_PrefabInstance: {fileID: 748286615}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3766287
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766285}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &97031095
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +157,7 @@ GameObject:
   - component: {fileID: 97031098}
   - component: {fileID: 97031097}
   - component: {fileID: 97031096}
+  - component: {fileID: 97031099}
   m_Layer: 0
   m_Name: Cig Smoke
   m_TagString: Untagged
@@ -4971,6 +4999,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -97.927}
+--- !u!95 &97031099
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97031095}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &148352825
 GameObject:
   m_ObjectHideFlags: 0
@@ -5489,7 +5539,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 938a1850149d5c2409c57d47705ea127, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1160135911}
   m_SourcePrefab: {fileID: 100100000, guid: 938a1850149d5c2409c57d47705ea127, type: 3}
 --- !u!1001 &748286615
 PrefabInstance:
@@ -5594,7 +5647,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40d5aad0817bfc44eaf400106106a5c2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3766287}
   m_SourcePrefab: {fileID: 100100000, guid: 40d5aad0817bfc44eaf400106106a5c2, type: 3}
 --- !u!1 &888925844
 GameObject:
@@ -5685,6 +5741,7 @@ GameObject:
   - component: {fileID: 931831194}
   - component: {fileID: 931831193}
   - component: {fileID: 931831192}
+  - component: {fileID: 931831195}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Untagged
@@ -5806,6 +5863,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931831190}
   m_CullTransparentMesh: 1
+--- !u!95 &931831195
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931831190}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1149103373
 GameObject:
   m_ObjectHideFlags: 0
@@ -5818,6 +5897,7 @@ GameObject:
   - component: {fileID: 1149103377}
   - component: {fileID: 1149103376}
   - component: {fileID: 1149103375}
+  - component: {fileID: 1149103378}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -5939,6 +6019,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149103373}
   m_CullTransparentMesh: 1
+--- !u!95 &1149103378
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149103373}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1160135909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 938a1850149d5c2409c57d47705ea127, type: 3}
+  m_PrefabInstance: {fileID: 686951142}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1160135911
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160135909}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1305546721
 GameObject:
   m_ObjectHideFlags: 0
@@ -6184,6 +6313,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1966221143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1966221144}
+  - component: {fileID: 1966221145}
+  m_Layer: 0
+  m_Name: LoadTimeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1966221144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966221143}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 789.4192, y: 435.54926, z: 4.0642953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1966221145
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966221143}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 65d3569b2f43f9548ab8b84a36b9262c, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 7261818497549718745, guid: 65d3569b2f43f9548ab8b84a36b9262c, type: 2}
+    value: {fileID: 931831195}
+  - key: {fileID: -7806199507960821462, guid: 65d3569b2f43f9548ab8b84a36b9262c, type: 2}
+    value: {fileID: 1149103378}
+  - key: {fileID: 7237623197665953830, guid: 65d3569b2f43f9548ab8b84a36b9262c, type: 2}
+    value: {fileID: 1160135911}
+  - key: {fileID: 9075089509081059929, guid: 65d3569b2f43f9548ab8b84a36b9262c, type: 2}
+    value: {fileID: 3766287}
+  - key: {fileID: -1606083627685931110, guid: 65d3569b2f43f9548ab8b84a36b9262c, type: 2}
+    value: {fileID: 97031095}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &2027507408
 GameObject:
   m_ObjectHideFlags: 0
@@ -6288,3 +6476,4 @@ SceneRoots:
   - {fileID: 748286615}
   - {fileID: 686951142}
   - {fileID: 549517032}
+  - {fileID: 1966221144}
