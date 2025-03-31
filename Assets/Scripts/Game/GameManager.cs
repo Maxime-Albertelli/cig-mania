@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text TrustText;
     [Space(10)]
 
-    [Header("Chose a Name box")]
+    [Header("Choose a Name box")]
     [SerializeField] private GameObject chooseName;
     [SerializeField] private TMP_Text nameField;
     [Space(10)]
@@ -48,6 +48,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject particleClick;
     [Space(10)]
 
+    [Header("Panels")]
+    [Tooltip("The game over screen panel")]
+    [SerializeField] private GameObject gameOverPanel;
+    [Tooltip("The game victory screen panel")]
+    [SerializeField] private GameObject gameVictoryPanel;
+
     [Header("Game Values")]
     [Tooltip("The lose trust rate per week")]
     [SerializeField] private float loseTrustRate = 0.1f;
@@ -55,6 +61,10 @@ public class GameManager : MonoBehaviour
     public int speedValue = 1;
     [Tooltip("Keep tracks of the current money value")]
     public ulong moneyValue;
+
+    [Header("Script instance")]
+    [Tooltip("The GameEndScreen script")]
+    [SerializeField] private GameEndScreen gameEndScreen;
 
     private ulong _totalDeaths;
     private ulong _totalAddicted;
@@ -67,6 +77,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         inGameUI.SetActive(false);
+        gameOverPanel.SetActive(false);
+        gameVictoryPanel.SetActive(false);
     }
 
     public void StartGame()
@@ -141,8 +153,7 @@ public class GameManager : MonoBehaviour
             _ => $"{number / 1000000000f:F2}B"
         };
     }
-    
-    
+      
     void OnMouseUpAsButton()
     {
         regionTooltip.Hide();
@@ -171,6 +182,25 @@ public class GameManager : MonoBehaviour
     {
         trustBar.value -= trustRate;
         TrustText.text = trustBar.value.ToString("0");
+
+        CheckTrust();
+    }
+
+    /// <summary>
+    /// Check the trust value, if it's under 0, the game is lost
+    /// Set active the game over panel
+    /// </summary>
+    private void CheckTrust()
+    {
+        if(trustBar.value <= 0)
+        {
+            speedValue = 0;
+            trustBar.value = 0;
+            TrustText.text = trustBar.value.ToString("0");
+            gameEndScreen.ApplyDescription();  
+            gameOverPanel.SetActive(true);
+
+        }
     }
 
     /// <summary>
@@ -182,5 +212,32 @@ public class GameManager : MonoBehaviour
     {
         trustBar.value = trust;
         TrustText.text = trust.ToString("00");
+    }
+
+    /// <summary>
+    /// Restart game by setting all values by default
+    /// </summary>
+    public void RestartGame()
+    {
+        ResetPopulation();
+
+        ResetCigarette();
+
+        ResetUpgrade();
+    }
+
+    private void ResetUpgrade()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ResetCigarette()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ResetPopulation()
+    {
+        throw new NotImplementedException();
     }
 }
