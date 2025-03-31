@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f6904e9c41d78d4e94c436df9cdff55, type: 3}
-  m_Name: Taxe I
+  m_Name: Promotion
   m_EditorClassIdentifier: 
   upgradeData:
   - statType: 0
     skillIncreaseAmount: 20
     isPercentage: 1
+  - statType: 3
+    skillIncreaseAmount: 30
+    isPercentage: 1
   isAbility: 0
-  upgradeName: Taxe I
+  upgradeName: Promotion
   overrideDescription: 0
-  description: Taxe I augmente Prix de 20%.
+  description: Promotion augmente Prix de 20%, Influence de 30%.
   upgradePrerequisites: []
-  tier: 0
-  cost: 700
+  tier: 1
+  cost: 1000
   purchased: 0

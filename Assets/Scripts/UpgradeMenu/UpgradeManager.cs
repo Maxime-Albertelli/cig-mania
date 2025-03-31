@@ -264,7 +264,7 @@ public class UpgradeManager : MonoBehaviour
     /// <returns>True if enough to buy the upgrade</returns>
     public bool CanAffordUpgrade(UpgradeSO upgrade)
     {
-        return GameManager.Instance.money >= upgrade.cost;
+        return GameManager.Instance.moneyValue >= upgrade.cost;
     }
 
     /// <summary>
@@ -281,7 +281,7 @@ public class UpgradeManager : MonoBehaviour
         }
         ApplyEffect(upgrade);
         unlockedUpgrade.Add(upgrade);
-        GameManager.Instance.money -= (ulong)upgrade.cost;
+        GameManager.Instance.moneyValue -= (ulong)upgrade.cost;
         Debug.Log("Skill obtained : " + upgrade.name);
         SoundManager.PlaySound(SoundType.UPGRADE);
     }

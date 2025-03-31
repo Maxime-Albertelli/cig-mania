@@ -14,10 +14,16 @@ public class Region : MonoBehaviour
     
     private const float MaxAlpha = 0.80f;
 
+    [Header("Population in this region")]
+    [Tooltip("Ppopulation in this region")] 
     public ulong population;
+    [Tooltip("Number of addicted people in this region")]
     public ulong addictedPopulation;
 
+    [Header("Boolean value of this region")]
+    [Tooltip("Checked means this region can buy cigarettes")]
     public bool isBuyingCigarettes;
+    [Tooltip("Checked means this region is selected")]
     public bool isSelected;
 
     private void Awake()
@@ -27,9 +33,9 @@ public class Region : MonoBehaviour
 
     public void UpdateVisuals()
     {
-        var percentage = (float)addictedPopulation / population;
-        var addictColor = Color.red;
-        var selectColor = Color.white; // Color on click
+        float percentage = (float)addictedPopulation / population;
+        Color addictColor = Color.red;
+        Color selectColor = Color.white; // Color on click
         selectColor.a = 0.25f;
         addictColor.a = percentage * MaxAlpha;
         if (isSelected)

@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Game Manager
@@ -17,7 +18,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Region[] regions;
     [Space(10)]
 
-    [Header("Infos Texts")]
+    [Header("Slider")]
+    [Tooltip("The slider used for the trust bar")]
+    [SerializeField] private Slider trustBar;
+    [Space(10)]
+
+    [Header("UI Infos Texts")]
     [Tooltip("Number of death text")]
     [SerializeField] private TMP_Text deathsText; 
     [Tooltip("Number of addicted text")]
@@ -26,6 +32,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text moneyText;
     [Tooltip("Company's name Text")]
     [SerializeField] private TMP_Text nameText;
+    [Tooltip("Trust text")]
+    [SerializeField] private TMP_Text TrustText;
     [Space(10)]
 
     [Header("Chose a Name box")]
@@ -40,18 +48,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject particleClick;
     [Space(10)]
 
-    [Header("Money")]
-    [Tooltip("Current money")]
-    public ulong money;
-    
+    [Header("Game Values")]
+    [Tooltip("The lose trust rate per week")]
+    [SerializeField] private float loseTrustRate = 0.1f;
+    [Tooltip("Game speed value, 0 is paused game, 1 is normal speed, 2 is fast speed")]
+    public int speedValue = 1;
+    [Tooltip("Keep tracks of the current money value")]
+    public ulong moneyValue;
+
     private ulong _totalDeaths;
     private ulong _totalAddicted;
 
     private string _name;
-
-    [Header("Game Speed")]
-    [Tooltip("Game speed value, 0 is paused game, 1 is normal speed, 2 is fast speed")]
-    public int speedValue = 1;
 
     public static GameManager Instance { get; private set; }
 
@@ -82,13 +90,11 @@ public class GameManager : MonoBehaviour
             // When speedValue is equal to zero, the game is on pause
             if (speedValue != 0)
             {
-                var userLoss = (int)(region.addictedPopulation * (1 - cigarette.addiction));
+                int userLoss = (int)(region.addictedPopulation * (1 - cigarette.addiction));
 
-                var newUsers = Mathf.Ceil(
-                    Mathf.Sqrt(region.addictedPopulation) * cigarette.influence
-                );
+                float newUsers = Mathf.Ceil(Mathf.Sqrt(region.addictedPopulation) * cigarette.influence);
 
-                var deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
+                float deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
                 _totalDeaths += (ulong)deaths;
 
                 // Evolution of population
@@ -99,19 +105,25 @@ public class GameManager : MonoBehaviour
                 if (region.addictedPopulation > region.population)
                     region.addictedPopulation = region.population;
 
-                money += (ulong)(userLoss * cigarette.price);
+                moneyValue += (ulong)(userLoss * cigarette.price);
             }
             
 
             region.UpdateVisuals();
-
             _totalAddicted += region.addictedPopulation;
+
+        }
+
+        // Evolution of trust
+        if(speedValue != 0)
+        {
+            UpdateTrustLoss(loseTrustRate);
         }
 
         // parse Millions/Billions
         deathsText.text = $"Morts: {ParseNumber(_totalDeaths)}";
         addictedText.text = $"Accros: {ParseNumber(_totalAddicted)}";
-        moneyText.text = $"Argent: {ParseNumber(money)}€";   
+        moneyText.text = $"Argent: {ParseNumber(moneyValue)}€";   
     }
 
     /// <summary>
@@ -149,5 +161,26 @@ public class GameManager : MonoBehaviour
             position.z = 0;
             Instantiate(particleClick, position, Quaternion.identity);
         }
+    }
+
+    /// <summary>
+    /// Apply the trust Rate on the trust Slider
+    /// </summary>
+    /// <param name="trustRate">The trust rate to apply</param>
+    private void UpdateTrustLoss(float trustRate)
+    {
+        trustBar.value -= trustRate;
+        TrustText.text = trustBar.value.ToString("0");
+    }
+
+    /// <summary>
+    /// Change the value of trust if a big changment happened
+    /// Example : A +20 in trust or a -3.5
+    /// </summary>
+    /// <param name="trust">The new trust value to set</param>
+    private void UpdateTrust(float trust)
+    {
+        trustBar.value = trust;
+        TrustText.text = trust.ToString("00");
     }
 }
