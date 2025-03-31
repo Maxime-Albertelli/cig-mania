@@ -10,17 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f6904e9c41d78d4e94c436df9cdff55, type: 3}
-  m_Name: Taxe I
+  m_Name: Aggresive Perfume
   m_EditorClassIdentifier: 
   upgradeData:
-  - statType: 0
-    skillIncreaseAmount: 20
+  - statType: 2
+    skillIncreaseAmount: 50
+    isPercentage: 1
+  - statType: 1
+    skillIncreaseAmount: 10
     isPercentage: 1
   isAbility: 0
-  upgradeName: Taxe I
+  upgradeName: Aggresive Perfume
   overrideDescription: 0
-  description: Taxe I augmente Prix de 20%.
-  upgradePrerequisites: []
-  tier: 0
-  cost: 700
+  description: Aggresive Perfume augmente Addiction de 50%, Toxicite de 10%.
+  upgradePrerequisites:
+  - {fileID: 11400000, guid: 81b386cb2712ae247a37f2e5a5c367b7, type: 2}
+  tier: 1
+  cost: 1000
   purchased: 0

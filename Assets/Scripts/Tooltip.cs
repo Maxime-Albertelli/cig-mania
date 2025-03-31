@@ -80,16 +80,16 @@ public class Tooltip : MonoBehaviour
     
     public void UnlockRegion()
     {
-        var cost = region.population / 1000;
+        ulong cost = region.population / 1000;
 
         // The user can't unlock a region if he don't have enough money
-        if (GameManager.Instance.money < cost)
+        if (GameManager.Instance.moneyValue < cost)
         {
             price.text = "Pas assez d'argent !";
             return;
         }
 
-        GameManager.Instance.money -= cost;
+        GameManager.Instance.moneyValue -= cost;
         
         region.addictedPopulation = 1;
         UpdateRegion(region);
