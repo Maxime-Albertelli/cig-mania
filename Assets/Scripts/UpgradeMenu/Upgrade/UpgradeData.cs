@@ -9,7 +9,7 @@ using UnityEngine;
 public class UpgradeData
 {
     public StatType statType;
-    public int skillIncreaseAmount;
+    public float skillIncreaseAmount;
     public bool isPercentage;
 
 }

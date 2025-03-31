@@ -23,6 +23,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private GameObject influenceUpgradePanel;
     [Tooltip("The game object used for the addiction upgrade menu")]
     [SerializeField] private GameObject addictionUpgradePanel;
+    [Tooltip("The game object used for the trust upgrade menu")]
+    [SerializeField] private GameObject trustUpgradePanel;
     [Space(5)]
 
     [Header("Text panel menu")]
@@ -58,6 +60,13 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TMP_Text addictionTitle;
     [Tooltip("The description text of the addiction upgrade menu")]
     [SerializeField] private TMP_Text addictionDescription;
+    [Space(10)]
+
+    [Header("Text panel trust")]
+    [Tooltip("The title text of the trust upgrade menu")]
+    [SerializeField] private TMP_Text trustTitle;
+    [Tooltip("The description text of the trust upgrade menu")]
+    [SerializeField] private TMP_Text trustDescription;
     [Space(10)]
 
     // List of all unlocked upgrade
@@ -104,6 +113,12 @@ public class UpgradeManager : MonoBehaviour
         addictionDescription.text = "Bienvenu dans la gestion de l'addiction." +
             "\nIci vous pouvez gérés le gout de vos produits !" +
             "\nSi on augmente la dose, le gout est meilleur, aucun risque sur la santé, n'est ce pas ?";
+
+        trustTitle.text = "Confiance\r\n_________________";
+        trustDescription.text = "Bienvenu dans la gestion de la confiance." +
+            "\nIci vous pouvez gérés l'image de la compagnie." +
+            "\nSi nos ventes sont trop aggresives, les états le remarquerait ! Avec quelques pots de vins" +
+            "\nIls se laisseront faire !";
     }
 
     /// <summary>
@@ -198,6 +213,9 @@ public class UpgradeManager : MonoBehaviour
                     ModifyStat(ref GameManager.Instance.cigarette.toxicity, data);
                     break;
 
+                case StatType.Confiance:
+                    ModifyStat(ref GameManager.Instance.trustRate, data);
+                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(data.statType));

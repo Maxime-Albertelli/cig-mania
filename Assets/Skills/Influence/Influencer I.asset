@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f6904e9c41d78d4e94c436df9cdff55, type: 3}
-  m_Name: Influencer
+  m_Name: Influencer I
   m_EditorClassIdentifier: 
   upgradeData:
-  - statType: 0
-    skillIncreaseAmount: -10
-    isPercentage: 1
   - statType: 3
     skillIncreaseAmount: 20
     isPercentage: 1
   isAbility: 0
-  upgradeName: Influencer
+  upgradeName: Influencer I
   overrideDescription: 0
-  description: Influencer augmente Prix de -10%, Influence de 20%.
-  upgradePrerequisites: []
+  description: Influencer I augmente Influence de 20%.
+  upgradePrerequisites:
+  - {fileID: 11400000, guid: 94f140c4ef1c14e4a9bb9813d9edc805, type: 2}
   tier: 1
   cost: 1000
   purchased: 0

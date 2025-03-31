@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f6904e9c41d78d4e94c436df9cdff55, type: 3}
-  m_Name: Taxe I
+  m_Name: Influencer II
   m_EditorClassIdentifier: 
   upgradeData:
-  - statType: 0
-    skillIncreaseAmount: 20
+  - statType: 3
+    skillIncreaseAmount: 60
     isPercentage: 1
   - statType: 4
-    skillIncreaseAmount: 0.05
+    skillIncreaseAmount: -0.05
     isPercentage: 0
   isAbility: 0
-  upgradeName: Taxe I
+  upgradeName: Influencer II
   overrideDescription: 0
-  description: Taxe I augmente Prix de 20%, Confiance de 0,05 point(s).
-  upgradePrerequisites: []
-  tier: 0
-  cost: 700
+  description: Influencer II augmente Influence de 60%, Confiance de -0,05 point(s).
+  upgradePrerequisites:
+  - {fileID: 11400000, guid: a41c01e98baac9b41b992a4581e3735a, type: 2}
+  tier: 2
+  cost: 1000
   purchased: 0

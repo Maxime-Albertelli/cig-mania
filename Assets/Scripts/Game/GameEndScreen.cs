@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,10 +8,10 @@ using UnityEngine.SceneManagement;
 public class GameEndScreen : MonoBehaviour
 {
     [Header("Stats text display")]
-    [Tooltip("The reason why you lose Text")]
-    [SerializeField] private TMP_Text reasonLost;
-    [Tooltip("The reason why you win Text")]
-    [SerializeField] private TMP_Text reasonWin;
+    [Tooltip("The lose / win Text")]
+    [SerializeField] private TMP_Text result;
+    [Tooltip("The reason why you lose / win Text")]
+    [SerializeField] private TMP_Text reason;
 
     private bool victory = false;
 
@@ -22,11 +22,13 @@ public class GameEndScreen : MonoBehaviour
     {
         if (victory)
         {
-
+            result.text = " Victoire !";
+            reason.text = "Vous êtes le maitre absolu de la clope !";
         }
         else
         {
-            reasonLost.text = "Vous avez perdu la confiance des acheteurs.";
+            result.text = "Partie perdue...";
+            reason.text = "Vous avez perdu la confiance des acheteurs.";
         }
     }
 
