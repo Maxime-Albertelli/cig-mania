@@ -7,37 +7,52 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    [Header("Cigarette Stats")]
+    [Tooltip("All the attributs of a base cigarette")]
     public Cigarette cigarette;
+    [Space(10)]
 
+    [Header("Regions")]
+    [Tooltip("List of all regions on the map")]
     [SerializeField] public Region[] regions;
+    [Space(10)]
 
-    [SerializeField] private TMP_Text deathsText;
+    [Header("Infos Texts")]
+    [Tooltip("Number of death text")]
+    [SerializeField] private TMP_Text deathsText; 
+    [Tooltip("Number of addicted text")]
     [SerializeField] private TMP_Text addictedText;
+    [Tooltip("Money text")]
     [SerializeField] private TMP_Text moneyText;
-
+    [Tooltip("Company's name Text")]
     [SerializeField] private TMP_Text nameText;
+    [Space(10)]
 
+    [Header("Chose a Name box")]
     [SerializeField] private GameObject chooseName;
     [SerializeField] private TMP_Text nameField;
-    
+    [Space(10)]
+
     [SerializeField] private Tooltip regionTooltip;
-
-    [SerializeField] private GameObject upgradePanel;
-
-    [SerializeField] private GameObject prixUpgradePanel;
-    [SerializeField] private GameObject taxeUpgradePanel;
-    [SerializeField] private GameObject influenceUpgradePanel;
-    [SerializeField] private GameObject addictionUpgradePanel;
+    [Space(10)]
 
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private GameObject particleClick;
-    
+    [Space(10)]
+
+    [Header("Money")]
+    [Tooltip("Current money")]
     public ulong money;
     
     private ulong _totalDeaths;
     private ulong _totalAddicted;
 
     private string _name;
+
+    [Header("Game Speed")]
+    [Tooltip("Game speed value, 0 is paused game, 1 is normal speed, 2 is fast speed")]
+    public int speedValue = 1;
+
     public static GameManager Instance { get; private set; }
 
 
@@ -60,28 +75,33 @@ public class GameManager : MonoBehaviour
     private void GameLoop()
     {
         _totalAddicted = 0;
-        foreach (var region in regions)
+        foreach (Region region in regions)
         {
             if (!region.isBuyingCigarettes) continue;
 
-            var userLoss = (int)(region.addictedPopulation * (1 - cigarette.addiction));
+            // When speedValue is equal to zero, the game is on pause
+            if (speedValue != 0)
+            {
+                var userLoss = (int)(region.addictedPopulation * (1 - cigarette.addiction));
 
-            var newUsers = Mathf.Ceil(
-                Mathf.Sqrt(region.addictedPopulation) * cigarette.influence
-            );
+                var newUsers = Mathf.Ceil(
+                    Mathf.Sqrt(region.addictedPopulation) * cigarette.influence
+                );
 
-            var deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
-            _totalDeaths += (ulong)deaths;
+                var deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
+                _totalDeaths += (ulong)deaths;
 
-            // Evolution of population
-            region.addictedPopulation -= (ulong)deaths;
-            region.addictedPopulation -= (ulong)userLoss;
-            region.population -= (ulong)deaths;
-            region.addictedPopulation += (ulong)newUsers;
-            if (region.addictedPopulation > region.population)
-                region.addictedPopulation = region.population;
+                // Evolution of population
+                region.addictedPopulation -= (ulong)deaths;
+                region.addictedPopulation -= (ulong)userLoss;
+                region.population -= (ulong)deaths;
+                region.addictedPopulation += (ulong)newUsers;
+                if (region.addictedPopulation > region.population)
+                    region.addictedPopulation = region.population;
 
-            money += (ulong)(userLoss * cigarette.price);
+                money += (ulong)(userLoss * cigarette.price);
+            }
+            
 
             region.UpdateVisuals();
 
@@ -89,9 +109,9 @@ public class GameManager : MonoBehaviour
         }
 
         // parse Millions/Billions
-        deathsText.text = $"Deaths: {ParseNumber(_totalDeaths)}";
-        addictedText.text = $"Addicted: {ParseNumber(_totalAddicted)}";
-        moneyText.text = $"Money: {ParseNumber(money)}€";   
+        deathsText.text = $"Morts: {ParseNumber(_totalDeaths)}";
+        addictedText.text = $"Accros: {ParseNumber(_totalAddicted)}";
+        moneyText.text = $"Argent: {ParseNumber(money)}€";   
     }
 
     /// <summary>

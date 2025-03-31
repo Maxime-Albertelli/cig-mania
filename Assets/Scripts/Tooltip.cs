@@ -9,13 +9,14 @@ using UnityEngine.UI;
 /// </summary>
 public class Tooltip : MonoBehaviour
 {
-    public static Tooltip instance;
-    private Region region;
     [SerializeField] private Button unlockButton;
     [SerializeField] private TMP_Text price;
+
     public TMP_Text addictedPopulation;
     public TMP_Text regionName;
+    public static Tooltip instance;
 
+    private Region region;
 
     private void Awake()
     {
@@ -58,7 +59,7 @@ public class Tooltip : MonoBehaviour
             unlockButton.gameObject.SetActive(true);
             addictedPopulation.gameObject.SetActive(false);
             regionName.gameObject.SetActive(false);
-            price.text = $"{region.regionName} : Unlock for {GameManager.ParseNumber(region.population / 1000)} €";
+            price.text = $"{region.regionName} : Débloquer pour {GameManager.ParseNumber(region.population / 1000)} €";
             return;
         }
 
@@ -74,7 +75,7 @@ public class Tooltip : MonoBehaviour
     private void UpdateAddictedPopulation()
     {
         addictedPopulation.text =
-            $"Addicted Population: {GameManager.ParseNumber(region.addictedPopulation)}/{GameManager.ParseNumber(region.population)}";
+            $"Population Addicte: {GameManager.ParseNumber(region.addictedPopulation)}/{GameManager.ParseNumber(region.population)}";
     }
     
     public void UnlockRegion()
@@ -84,7 +85,7 @@ public class Tooltip : MonoBehaviour
         // The user can't unlock a region if he don't have enough money
         if (GameManager.Instance.money < cost)
         {
-            price.text = "Not enough money !";
+            price.text = "Pas assez d'argent !";
             return;
         }
 

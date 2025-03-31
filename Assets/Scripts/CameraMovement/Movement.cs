@@ -7,6 +7,7 @@ namespace CameraMovement
     /// </summary>
     public class Movement : MonoBehaviour
     {
+        [Header("Camera Sensitivity")]
         [SerializeField] private float moveSpeed = 1f;
 
         [SerializeField] protected float zoomSpeed = 0.0025f;

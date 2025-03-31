@@ -5,47 +5,67 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Manage the click of the user for the upgrade
+/// Manage the panels and apply all the effect of an upgrade
 /// </summary>
 public class UpgradeManager : MonoBehaviour
 {
     [Header("Panel Menu Upgrade")]
+    [Tooltip("The game object used for the upgrade menu")]
     [SerializeField] private GameObject upgradePanel;
     [Space(10)]
 
     [Header("Panel upgrades Menu")]
+    [Tooltip("The game object used for the price upgrade menu")]
     [SerializeField] private GameObject prixUpgradePanel;
+    [Tooltip("The game object used for the taxe upgrade menu")]
     [SerializeField] private GameObject taxeUpgradePanel;
+    [Tooltip("The game object used for the influence upgrade menu")]
     [SerializeField] private GameObject influenceUpgradePanel;
+    [Tooltip("The game object used for the addiction upgrade menu")]
     [SerializeField] private GameObject addictionUpgradePanel;
+    [Space(5)]
+
+    [Header("Text panel menu")]
+    [Tooltip("The title text of the upgrade menu")]
     [SerializeField] private TMP_Text menuTitle;
+    [Tooltip("The description text of the upgrade menu")]
     [SerializeField] private TMP_Text menuDescription;
     [Space(10)]
 
     [Header("Text panel price")]
+    [Tooltip("The title text of the price upgrade menu")]
     [SerializeField] private TMP_Text priceTitle;
+    [Tooltip("The title text of the price upgrade menu")]
     [SerializeField] private TMP_Text priceDescription;
     [Space(10)]
 
     [Header("Text panel taxes")]
+    [Tooltip("The title text of the taxe upgrade menu")]
     [SerializeField] private TMP_Text taxeTitle;
+    [Tooltip("The description text of the taxe upgrade menu")]
     [SerializeField] private TMP_Text taxeDescription;
     [Space(10)]
 
     [Header("Text panel influence")]
+    [Tooltip("The title text of the influence upgrade menu")]
     [SerializeField] private TMP_Text influenceTitle;
+    [Tooltip("The description text of the influence upgrade menu")]
     [SerializeField] private TMP_Text influenceDescription;
     [Space(10)]
 
     [Header("Text panel addiction")]
+    [Tooltip("The title text of the addiction upgrade menu")]
     [SerializeField] private TMP_Text addictionTitle;
+    [Tooltip("The description text of the addiction upgrade menu")]
     [SerializeField] private TMP_Text addictionDescription;
     [Space(10)]
 
+    // List of all unlocked upgrade
     private List<UpgradeSO> unlockedUpgrade = new List<UpgradeSO>();
 
     public static UpgradeManager instance = null;
 
+    // Make this script a singleton
     private void Awake()
     {
         if (instance == null)
@@ -58,18 +78,18 @@ public class UpgradeManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-
+ 
     private void Start()
     {
-        // Initialisation des descriptions
+        // Initiate the description and title of each panel
         menuTitle.text = "Gestion des produits";
         menuDescription.text = "Bonjour patron ! Bienvenu dans le département de R&D. Ici vous pouvez investir dans différents points de recherches.";
 
         priceTitle.text = "Prix\r\n_________________";
         priceDescription.text = "Bienvenu dans la gestion des prix." +
             "\nIci vous pouvez gérés le prix de vos produits !" +
-            "\nL'argent directement dans vos poches !"; 
-        
+            "\nL'argent directement dans vos poches !";
+
         taxeTitle.text = "Taxe\r\n_________________";
         taxeDescription.text = "Bienvenu dans la gestion des Taxes." +
             "\nIci vous pouvez gérés les taxes sur vos produits !" +
@@ -86,6 +106,10 @@ public class UpgradeManager : MonoBehaviour
             "\nSi on augmente la dose, le gout est meilleur, aucun risque sur la santé, n'est ce pas ?";
     }
 
+    /// <summary>
+    /// When a upgrade is selected, check all prerequisites if yes, unlock Upgrade, in all cases Change Description
+    /// </summary>
+    /// <param name="upgrade"></param>
     public void SelectUpgrade(UpgradeSO upgrade)
     {
         if (PreReqsMet(upgrade))
@@ -96,9 +120,13 @@ public class UpgradeManager : MonoBehaviour
         ChangeDescription(upgrade);
     }
 
+    /// <summary>
+    /// Change the description and the title on the active panel depending of the upgrade
+    /// </summary>
+    /// <param name="upgrade"></param>
     private void ChangeDescription(UpgradeSO upgrade)
     {
-        if(prixUpgradePanel.activeSelf)
+        if (prixUpgradePanel.activeSelf)
         {
             priceTitle.text = upgrade.name + "\r\n_________________";
             priceDescription.text = upgrade.description;
@@ -123,6 +151,11 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Apply effect depending of the upgrade' Stat Type
+    /// </summary>
+    /// <param name="upgrade"></param>
+    /// <exception cref="ArgumentOutOfRangeException">Throw an exception if a new state type has been added but not in the switch case</exception>
     private void ApplyEffect(UpgradeSO upgrade)
     {
         /*
@@ -150,7 +183,7 @@ public class UpgradeManager : MonoBehaviour
             switch (data.statType)
             {
                 case StatType.Prix:
-                    ModifyStat(ref GameManager.Instance.cigarette.price, data);                    
+                    ModifyStat(ref GameManager.Instance.cigarette.price, data);
                     break;
 
                 case StatType.Influence:
@@ -166,12 +199,17 @@ public class UpgradeManager : MonoBehaviour
                     break;
 
 
-                default: 
+                default:
                     throw new ArgumentOutOfRangeException(nameof(data.statType));
             }
         }
     }
 
+    /// <summary>
+    /// Modify ciragette's stat, wether it's a percentage or flat 
+    /// </summary>
+    /// <param name="stat">The stat's reference, for instance, addiction</param>
+    /// <param name="data">The upgrade's data</param>
     private void ModifyStat(ref float stat, UpgradeData data)
     {
         bool isPercent = data.isPercentage;
@@ -180,7 +218,7 @@ public class UpgradeManager : MonoBehaviour
 
         if (isPercent)
         {
-            stat += stat * (data.skillIncreaseAmount/100f);
+            stat += stat * (data.skillIncreaseAmount / 100f);
         }
         else
         {
@@ -194,31 +232,43 @@ public class UpgradeManager : MonoBehaviour
     /// <summary>
     /// Verify if the upgrade is already obtained
     /// </summary>
-    /// <param name="upgrade"></param>
-    /// <returns></returns>
+    /// <param name="upgrade">The Upgrade selected</param>
+    /// <returns>True if the upgrade is in unlockedUpgrade list</returns>
     public bool IsUpgradeUnlocked(UpgradeSO upgrade)
     {
         return unlockedUpgrade.Contains(upgrade);
     }
 
+    /// <summary>
+    /// Check if an upgrade is purchasable.
+    /// Check if already purchased, check if there's no upgrade prerequisites or if all upgradePrerequisites are unlocked
+    /// Do not check if enough money to buy it.
+    /// </summary>
+    /// <param name="upgrade"></param>
+    /// <returns>True if all prerequisites are met</returns>
     public bool PreReqsMet(UpgradeSO upgrade)
     {
+        bool preReqsMet = false;
         Debug.Log("Already have this one");
-        return upgrade.upgradePrerequisites.Count == 0 || upgrade.upgradePrerequisites.All(unlockedUpgrade.Contains);
+        if (!upgrade.purchased)
+        {
+            preReqsMet = upgrade.upgradePrerequisites.Count == 0 || upgrade.upgradePrerequisites.All(unlockedUpgrade.Contains);
+        }
+        return preReqsMet;
     }
 
     /// <summary>
     /// Verify if the upgrade is affordable
     /// </summary>
     /// <param name="upgrade"></param>
-    /// <returns></returns>
+    /// <returns>True if enough to buy the upgrade</returns>
     public bool CanAffordUpgrade(UpgradeSO upgrade)
     {
         return GameManager.Instance.money >= upgrade.cost;
     }
 
     /// <summary>
-    /// Obtain the upgrade
+    /// First, check if enough money to buy, if yes, apply its effect then add it to the unlockedUpgrade list
     /// </summary>
     /// <param name="upgrade"></param>
     public void UnlockUpgrade(UpgradeSO upgrade)
@@ -226,11 +276,13 @@ public class UpgradeManager : MonoBehaviour
         if (!CanAffordUpgrade(upgrade))
         {
             Debug.Log("Not enought money");
+            SoundManager.PlaySound(SoundType.UPGRADE_DENIED);
             return;
         }
         ApplyEffect(upgrade);
         unlockedUpgrade.Add(upgrade);
         GameManager.Instance.money -= (ulong)upgrade.cost;
         Debug.Log("Skill obtained : " + upgrade.name);
+        SoundManager.PlaySound(SoundType.UPGRADE);
     }
 }
