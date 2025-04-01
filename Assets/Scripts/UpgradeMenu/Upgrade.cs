@@ -14,6 +14,13 @@ public class Upgrade : MonoBehaviour
     public void SelectedUpgrade()
     {
         Debug.Log("Clicked");
-        UpgradeManager.instance.SelectUpgrade(upgradeInfo);
+        if (!upgradeInfo.purchased)
+        {
+            UpgradeManager.instance.SelectUpgrade(upgradeInfo);
+        }
+        else
+        {
+            Debug.Log("Already bought");
+        }
     }
 }

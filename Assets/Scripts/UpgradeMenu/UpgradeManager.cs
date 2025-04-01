@@ -271,6 +271,7 @@ public class UpgradeManager : MonoBehaviour
         if (!upgrade.purchased)
         {
             preReqsMet = upgrade.upgradePrerequisites.Count == 0 || upgrade.upgradePrerequisites.All(unlockedUpgrade.Contains);
+            upgrade.purchased = true;
         }
         return preReqsMet;
     }
