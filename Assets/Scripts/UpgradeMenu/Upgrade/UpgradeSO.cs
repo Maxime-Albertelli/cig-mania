@@ -57,7 +57,7 @@ public class UpgradeSO : ScriptableObject
                 sb.Append(upgradeData[i].statType.ToString());
                 sb.Append(" de ");
                 sb.Append(upgradeData[i].skillIncreaseAmount.ToString());
-                sb.Append(upgradeData[i].isPercentage ? "%" : "point(s)");
+                sb.Append(upgradeData[i].isPercentage ? "%" : " point(s)");
                 sb.Append(i < upgradeData.Count - 1 ? ", " : ".");
             }
 

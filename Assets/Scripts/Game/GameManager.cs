@@ -49,14 +49,12 @@ public class GameManager : MonoBehaviour
     [Space(10)]
 
     [Header("Panels")]
-    [Tooltip("The game over screen panel")]
-    [SerializeField] private GameObject gameOverPanel;
-    [Tooltip("The game victory screen panel")]
-    [SerializeField] private GameObject gameVictoryPanel;
+    [Tooltip("The game end screen panel")]
+    [SerializeField] private GameObject gameEndPanel;
 
     [Header("Game Values")]
-    [Tooltip("The lose trust rate per week")]
-    [SerializeField] private float loseTrustRate = 0.1f;
+    [Tooltip("The trust rate per week")]
+    public float trustRate = -0.1f;
     [Tooltip("Game speed value, 0 is paused game, 1 is normal speed, 2 is fast speed")]
     public int speedValue = 1;
     [Tooltip("Keep tracks of the current money value")]
@@ -77,8 +75,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         inGameUI.SetActive(false);
-        gameOverPanel.SetActive(false);
-        gameVictoryPanel.SetActive(false);
+        gameEndPanel.SetActive(false);
     }
 
     public void StartGame()
@@ -129,7 +126,7 @@ public class GameManager : MonoBehaviour
         // Evolution of trust
         if(speedValue != 0)
         {
-            UpdateTrustLoss(loseTrustRate);
+            UpdateTrustLoss(trustRate);
         }
 
         // parse Millions/Billions
@@ -180,7 +177,7 @@ public class GameManager : MonoBehaviour
     /// <param name="trustRate">The trust rate to apply</param>
     private void UpdateTrustLoss(float trustRate)
     {
-        trustBar.value -= trustRate;
+        trustBar.value += trustRate;
         TrustText.text = trustBar.value.ToString("0");
 
         CheckTrust();
@@ -197,8 +194,9 @@ public class GameManager : MonoBehaviour
             speedValue = 0;
             trustBar.value = 0;
             TrustText.text = trustBar.value.ToString("0");
+            gameEndScreen.SetVictory(false);
             gameEndScreen.ApplyDescription();  
-            gameOverPanel.SetActive(true);
+            gameEndPanel.SetActive(true);
 
         }
     }
@@ -214,6 +212,7 @@ public class GameManager : MonoBehaviour
         TrustText.text = trust.ToString("00");
     }
 
+    #region Reset Methods
     /// <summary>
     /// Restart game by setting all values by default
     /// </summary>
@@ -240,4 +239,5 @@ public class GameManager : MonoBehaviour
     {
         throw new NotImplementedException();
     }
+    #endregion
 }
