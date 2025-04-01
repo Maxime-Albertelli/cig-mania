@@ -8,6 +8,6 @@ public class Cigarette
 {
     public float price = 10f;
     public float toxicity = 0.1f;
-    public float addiction = 1f;
+    public float addiction = 0.1f;
     public float influence = 3f;
 }

@@ -12,8 +12,11 @@ public class Tooltip : MonoBehaviour
     [SerializeField] private Button unlockButton;
     [SerializeField] private TMP_Text price;
 
-    public TMP_Text addictedPopulation;
-    public TMP_Text regionName;
+    [SerializeField] private TMP_Text addictedPopulation;
+    [SerializeField] private TMP_Text deadPopulation;
+    [SerializeField] private TMP_Text healthyPopulation;
+
+    [SerializeField] private TMP_Text regionName;
     public static Tooltip instance;
 
     private Region region;
@@ -29,10 +32,14 @@ public class Tooltip : MonoBehaviour
         if (region == null)
             return;
 
-        if (region.addictedPopulation == 0)
-            return;
-        
-        UpdateAddictedPopulation();
+        if (region.addictedPopulation != 0)
+            UpdateAddictedPopulation();
+
+        if (region.deadPopulation != 0)
+            UpdateDeadPopulation();
+
+        if (region.healthyPopulation != 0)
+            UpdateHealthyPopulation();
     }
 
     public void Show()
@@ -47,7 +54,7 @@ public class Tooltip : MonoBehaviour
 
     public void UpdateRegion(Region newRegion)
     {
-        if (newRegion.population == 0)
+        if (newRegion.healthyPopulation == 0)
             return;
         
         region = newRegion;
@@ -58,8 +65,10 @@ public class Tooltip : MonoBehaviour
             price.gameObject.SetActive(true);
             unlockButton.gameObject.SetActive(true);
             addictedPopulation.gameObject.SetActive(false);
+            deadPopulation.gameObject.SetActive(false);
+            healthyPopulation.gameObject.SetActive(false);
             regionName.gameObject.SetActive(false);
-            price.text = $"{region.regionName} : Débloquer pour {GameManager.ParseNumber(region.population / 1000)} €";
+            price.text = $"{region.GetRegionName()} : Débloquer pour {GameManager.ParseNumber(region.GetMaxPopulation() / 1000)} €";
             return;
         }
 
@@ -67,20 +76,39 @@ public class Tooltip : MonoBehaviour
         price.gameObject.SetActive(false);
         unlockButton.gameObject.SetActive(false);
         addictedPopulation.gameObject.SetActive(true);
+        deadPopulation.gameObject.SetActive(true);
+        healthyPopulation.gameObject.SetActive(true);
         regionName.gameObject.SetActive(true);
-        regionName.text = region.regionName;
+        regionName.text = region.GetRegionName();
+
         UpdateAddictedPopulation();
+        UpdateDeadPopulation();
+        UpdateHealthyPopulation();
+    }
+
+    private void UpdateDeadPopulation()
+    {
+        deadPopulation.text =
+            $"Population morte: {GameManager.ParseNumber(region.deadPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
+
+    }
+
+    private void UpdateHealthyPopulation()
+    {
+        healthyPopulation.text =
+            $"Population saine: {GameManager.ParseNumber(region.healthyPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
+
     }
 
     private void UpdateAddictedPopulation()
     {
         addictedPopulation.text =
-            $"Population Addicte: {GameManager.ParseNumber(region.addictedPopulation)}/{GameManager.ParseNumber(region.population)}";
+            $"Population Addicte: {GameManager.ParseNumber(region.addictedPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
     }
     
     public void UnlockRegion()
     {
-        ulong cost = region.population / 1000;
+        ulong cost = region.GetMaxPopulation() / 1000;
 
         // The user can't unlock a region if he don't have enough money
         if (GameManager.Instance.moneyValue < cost)

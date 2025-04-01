@@ -99,27 +99,30 @@ public class GameManager : MonoBehaviour
             // When speedValue is equal to zero, the game is on pause
             if (speedValue != 0)
             {
-                int userLoss = (int)(region.addictedPopulation * (1 - cigarette.addiction));
+                int lostPeople = (int)(region.addictedPopulation * (1 - cigarette.addiction));
 
                 float newUsers = Mathf.Ceil(Mathf.Sqrt(region.addictedPopulation) * cigarette.influence);
 
                 float deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
+
+                // evolution in global population
                 _totalDeaths += (ulong)deaths;
+                _totalAddicted += region.addictedPopulation;
 
                 // Evolution of population
-                region.addictedPopulation -= (ulong)deaths;
-                region.addictedPopulation -= (ulong)userLoss;
-                region.population -= (ulong)deaths;
-                region.addictedPopulation += (ulong)newUsers;
-                if (region.addictedPopulation > region.population)
-                    region.addictedPopulation = region.population;
+                // region.addictedPopulation -= (ulong)deaths;
+                // region.addictedPopulation -= (ulong)lostPeople;
+                // region.population -= (ulong)deaths;
+                // region.addictedPopulation += (ulong)newUsers;
 
-                moneyValue += (ulong)(userLoss * cigarette.price);
+                // Evolution in local population
+                region.ApplyEvolution((ulong)deaths, (ulong)lostPeople, (ulong)newUsers);
+
+                moneyValue += (ulong)(lostPeople * cigarette.price);
             }
             
 
             region.UpdateVisuals();
-            _totalAddicted += region.addictedPopulation;
 
         }
 
@@ -202,14 +205,14 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Change the value of trust if a big changment happened
+    /// Add trust by flat point
     /// Example : A +20 in trust or a -3.5
     /// </summary>
-    /// <param name="trust">The new trust value to set</param>
+    /// <param name="trust">The trust value to add</param>
     private void UpdateTrust(float trust)
     {
-        trustBar.value = trust;
-        TrustText.text = trust.ToString("00");
+        trustBar.value += trust;
+        TrustText.text = trustBar.value.ToString("00");
     }
 
     #region Reset Methods
@@ -225,19 +228,34 @@ public class GameManager : MonoBehaviour
         ResetUpgrade();
     }
 
+    /// <summary>
+    /// Lock all the upgrades
+    /// </summary>
     private void ResetUpgrade()
     {
-        throw new NotImplementedException();
+        UpgradeManager.instance.ResetUpgradeList();
     }
 
+    /// <summary>
+    /// Reset the cigarette coeff
+    /// </summary>
     private void ResetCigarette()
     {
-        throw new NotImplementedException();
+        cigarette.price = 10f;
+        cigarette.toxicity = 0.1f;
+        cigarette.addiction = 1f;
+        cigarette.influence = 3f;
     }
 
+    /// <summary>
+    /// Reset the population to all Regions
+    /// </summary>
     private void ResetPopulation()
     {
-        throw new NotImplementedException();
+        foreach (Region region in regions) 
+        { 
+            region.ResetPopulation();
+        }
     }
     #endregion
 }
