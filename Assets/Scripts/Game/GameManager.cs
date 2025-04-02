@@ -64,8 +64,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("The GameEndScreen script")]
     [SerializeField] private GameEndScreen gameEndScreen;
 
-    private ulong _totalDeaths;
-    private ulong _totalAddicted;
+    private ulong _totalDeaths = 0;
+    private ulong _totalAddicted = 0;
+    public ulong totalHealthy = 0;
 
     private string _name;
 
@@ -76,6 +77,11 @@ public class GameManager : MonoBehaviour
     {
         inGameUI.SetActive(false);
         gameEndPanel.SetActive(false);
+
+        foreach(Region region in regions)
+        {
+            totalHealthy += region.healthyPopulation;
+        }
     }
 
     public void StartGame()
@@ -108,6 +114,11 @@ public class GameManager : MonoBehaviour
                 // evolution in global population
                 _totalDeaths += (ulong)deaths;
                 _totalAddicted += region.addictedPopulation;
+                totalHealthy -= (ulong)deaths;
+                if(totalHealthy < 0)
+                {
+                    totalHealthy = 0;
+                }
 
                 // Evolution of population
                 // region.addictedPopulation -= (ulong)deaths;
@@ -119,11 +130,9 @@ public class GameManager : MonoBehaviour
                 region.ApplyEvolution((ulong)deaths, (ulong)lostPeople, (ulong)newUsers);
 
                 moneyValue += (ulong)(lostPeople * cigarette.price);
-            }
-            
+            }            
 
             region.UpdateVisuals();
-
         }
 
         // Evolution of trust
@@ -135,7 +144,20 @@ public class GameManager : MonoBehaviour
         // parse Millions/Billions
         deathsText.text = $"Morts: {ParseNumber(_totalDeaths)}";
         addictedText.text = $"Accros: {ParseNumber(_totalAddicted)}";
-        moneyText.text = $"Argent: {ParseNumber(moneyValue)}€";   
+        moneyText.text = $"Argent: {ParseNumber(moneyValue)}€";
+
+        CheckHealthyPeople();
+    }
+
+    private void CheckHealthyPeople()
+    {
+        if(totalHealthy < 1)
+        {
+            speedValue = 0;
+            gameEndScreen.SetVictory(true);
+            gameEndScreen.ApplyDescription();
+            gameEndPanel.SetActive(true);
+        }
     }
 
     /// <summary>
