@@ -64,9 +64,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("The GameEndScreen script")]
     [SerializeField] private GameEndScreen gameEndScreen;
 
-    private ulong _totalDeaths = 0;
-    private ulong _totalAddicted = 0;
-    public ulong totalHealthy = 0;
+    private long _totalDeaths = 0;
+    private long _totalAddicted = 0;
+    public long totalHealthy = 0;
 
     private string _name;
 
@@ -100,39 +100,44 @@ public class GameManager : MonoBehaviour
         _totalAddicted = 0;
         foreach (Region region in regions)
         {
-            if (!region.isBuyingCigarettes) continue;
-
-            // When speedValue is equal to zero, the game is on pause
-            if (speedValue != 0)
+            if (region.isBuyingCigarettes || region.healthyPopulation > 0)
             {
-                int lostPeople = (int)(region.addictedPopulation * (1 - cigarette.addiction));
+                // When speedValue is equal to zero, the game is on pause
+                if (speedValue != 0)
+                {                   
+                    int lostPeople = (int)(region.addictedPopulation * (1 - cigarette.addiction));
+                    float newUsers = 0;
 
-                float newUsers = Mathf.Ceil(Mathf.Sqrt(region.addictedPopulation) * cigarette.influence);
+                    if (region.healthyPopulation > 0)
+                    {
+                        newUsers = Mathf.Ceil(Mathf.Sqrt(region.addictedPopulation) * cigarette.influence);
+                    }
 
-                float deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
+                    float deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
 
-                // evolution in global population
-                _totalDeaths += (ulong)deaths;
-                _totalAddicted += region.addictedPopulation;
-                totalHealthy -= (ulong)deaths;
-                if(totalHealthy < 0)
-                {
-                    totalHealthy = 0;
+                    // evolution in global population
+                    _totalDeaths += (long)deaths;
+                    _totalAddicted += region.addictedPopulation;
+                    totalHealthy -= (long)deaths;
+                    if (totalHealthy < 0)
+                    {
+                        totalHealthy = 0;
+                    }
+
+                    // Evolution of population
+                    // region.addictedPopulation -= (ulong)deaths;
+                    // region.addictedPopulation -= (ulong)lostPeople;
+                    // region.population -= (ulong)deaths;
+                    // region.addictedPopulation += (ulong)newUsers;
+
+                    // Evolution in local population
+                    region.ApplyEvolution((long)deaths, (long)lostPeople, (long)newUsers);
+
+                    moneyValue += (ulong)(region.addictedPopulation * cigarette.price);
                 }
 
-                // Evolution of population
-                // region.addictedPopulation -= (ulong)deaths;
-                // region.addictedPopulation -= (ulong)lostPeople;
-                // region.population -= (ulong)deaths;
-                // region.addictedPopulation += (ulong)newUsers;
-
-                // Evolution in local population
-                region.ApplyEvolution((ulong)deaths, (ulong)lostPeople, (ulong)newUsers);
-
-                moneyValue += (ulong)(lostPeople * cigarette.price);
-            }            
-
-            region.UpdateVisuals();
+                region.UpdateVisuals();
+            }
         }
 
         // Evolution of trust
@@ -163,7 +168,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Parse the number to Millions/Billions keeping 2 decimal places
     /// </summary>
-    /// <param name="number"></param>
+    /// <param name="number">in ulong</param>
     /// <returns></returns>
     public static string ParseNumber(ulong number)
     {
@@ -175,7 +180,23 @@ public class GameManager : MonoBehaviour
             _ => $"{number / 1000000000f:F2}B"
         };
     }
-      
+
+    /// <summary>
+    /// Parse the number to Millions/Billions keeping 2 decimal places
+    /// </summary>
+    /// <param name="number">in long</param>
+    /// <returns></returns>
+    public static string ParseNumber(long number)
+    {
+        return number switch
+        {
+            < 1000 => number.ToString(),
+            < 1000000 => $"{number / 1000f:F2}K",
+            < 1000000000 => $"{number / 1000000f:F2}M",
+            _ => $"{number / 1000000000f:F2}B"
+        };
+    }
+
     void OnMouseUpAsButton()
     {
         regionTooltip.Hide();

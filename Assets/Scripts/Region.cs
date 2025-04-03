@@ -21,13 +21,13 @@ public class Region : MonoBehaviour
 
     [Header("Population in this region")]
     [Tooltip("Maximum population in this region")]
-    [SerializeField] private ulong maxPopulation; // used only for the reset
+    [SerializeField] private long maxPopulation; // used only for the reset
     [Tooltip("Current healthy population in this region")] 
-    public ulong healthyPopulation;
+    public long healthyPopulation = 0;
     [Tooltip("Current addicted people in this region")]
-    public ulong addictedPopulation;
+    public long addictedPopulation = 0;
     [Tooltip("Current dead people in this region")]
-    public ulong deadPopulation;
+    public long deadPopulation = 0;
 
     [Header("Boolean value of this region")]
     [Tooltip("Checked means this region can buy cigarettes")]
@@ -76,18 +76,33 @@ public class Region : MonoBehaviour
     }
 
     #region Population methods
-    public void ApplyEvolution(ulong deaths, ulong lostPeople, ulong newUsers)
+    public void ApplyEvolution(long deaths, long lostPeople, long newUsers)
     {
         // Evolution of population
         this.addictedPopulation -= deaths;
         this.addictedPopulation -= lostPeople;
+
         this.healthyPopulation -= deaths;
+        this.healthyPopulation -= newUsers;
+
         this.addictedPopulation += newUsers;
         this.deadPopulation += deaths;
-        if (this.addictedPopulation >= this.healthyPopulation)
+
+        if (this.deadPopulation >= maxPopulation - 1)
         {
-            this.addictedPopulation = this.healthyPopulation;
+            this.deadPopulation = maxPopulation;
         }
+
+        if (this.healthyPopulation <= 0)
+        {
+            this.healthyPopulation = 0;
+        }
+
+        if (this.addictedPopulation <= 0)
+        {
+            this.addictedPopulation = 0;
+        }
+
     }
 
     public void ResetPopulation()
@@ -102,7 +117,7 @@ public class Region : MonoBehaviour
     {
         return this.regionName;
     }
-    public ulong GetMaxPopulation()
+    public long GetMaxPopulation()
     {
         return this.maxPopulation;
     }

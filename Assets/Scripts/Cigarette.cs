@@ -6,8 +6,8 @@ using System;
 [Serializable]
 public class Cigarette
 {
-    public float price = 10f;
-    public float toxicity = 0.1f;
-    public float addiction = 0.1f;
-    public float influence = 3f;
+    public float price = 1f;
+    public float toxicity = 0.01f;
+    public float addiction = 0.9f;
+    public float influence = 1.5f;
 }

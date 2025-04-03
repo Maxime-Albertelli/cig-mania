@@ -29,17 +29,13 @@ public class Tooltip : MonoBehaviour
 
     private void Update()
     {
-        if (region == null)
-            return;
+        if (region == null) return;
 
-        if (region.addictedPopulation != 0)
-            UpdateAddictedPopulation();
+        UpdateAddictedPopulation();
 
-        if (region.deadPopulation != 0)
-            UpdateDeadPopulation();
+        UpdateDeadPopulation();
 
-        if (region.healthyPopulation != 0)
-            UpdateHealthyPopulation();
+        UpdateHealthyPopulation();
     }
 
     public void Show()
@@ -59,7 +55,7 @@ public class Tooltip : MonoBehaviour
         
         region = newRegion;
 
-        // When the region isn't buy
+        // When the region isn't bought
         if (region.addictedPopulation == 0)
         {
             price.gameObject.SetActive(true);
@@ -72,7 +68,7 @@ public class Tooltip : MonoBehaviour
             return;
         }
 
-        // When the region is buy
+        // When the region is bought
         price.gameObject.SetActive(false);
         unlockButton.gameObject.SetActive(false);
         addictedPopulation.gameObject.SetActive(true);
@@ -108,15 +104,17 @@ public class Tooltip : MonoBehaviour
     
     public void UnlockRegion()
     {
-        ulong cost = region.GetMaxPopulation() / 1000;
+        ulong cost = (ulong)region.GetMaxPopulation() / 1000;
 
         // The user can't unlock a region if he don't have enough money
         if (GameManager.Instance.moneyValue < cost)
         {
+            region.isBuyingCigarettes = false;
             price.text = "Pas assez d'argent !";
             return;
         }
 
+        region.isBuyingCigarettes = true;
         GameManager.Instance.moneyValue -= cost;
         
         region.addictedPopulation = 1;

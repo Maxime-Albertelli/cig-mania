@@ -16439,6 +16439,10 @@ PrefabInstance:
       propertyPath: addictedPopulation
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 389948571367057406, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 581269710099311685, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: manager
       value: 
@@ -16454,6 +16458,14 @@ PrefabInstance:
     - target: {fileID: 581269710099311685, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: maxPopulation
       value: 400000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 581269710099311685, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: addictedPopulation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 581269710099311685, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 581269710099311685, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
@@ -16474,6 +16486,10 @@ PrefabInstance:
     - target: {fileID: 582469456802535150, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: maxPopulation
       value: 400000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 582469456802535150, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 582469456802535150, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
@@ -19535,6 +19551,10 @@ PrefabInstance:
       propertyPath: maxPopulation
       value: 2000000000
       objectReference: {fileID: 0}
+    - target: {fileID: 3223028646961895949, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3291661051200384513, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
       value: 52
@@ -19971,6 +19991,10 @@ PrefabInstance:
       propertyPath: addictedPopulation
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3558125557596632661, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3606193649262281288, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: m_ShapeTexture
       value: 
@@ -20245,6 +20269,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4276483861806943113, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: addictedPopulation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276483861806943113, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4279089437457208802, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
@@ -20631,6 +20659,10 @@ PrefabInstance:
       propertyPath: maxPopulation
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4703947518251172198, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4894443936791856555, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: manager
       value: 
@@ -20649,6 +20681,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4894443936791856555, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: addictedPopulation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894443936791856555, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4938917423230738028, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
@@ -20920,6 +20956,10 @@ PrefabInstance:
       value: 150000000
       objectReference: {fileID: 0}
     - target: {fileID: 5560001906800543167, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560001906800543167, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
       value: 'Afrique centrale / de l''est '
       objectReference: {fileID: 0}
@@ -20971,6 +21011,10 @@ PrefabInstance:
       propertyPath: maxPopulation
       value: 600000000
       objectReference: {fileID: 0}
+    - target: {fileID: 5928482695256396848, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6113388969408406185, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: m_SortingOrder
       value: -38
@@ -21020,6 +21064,10 @@ PrefabInstance:
       value: 500000000
       objectReference: {fileID: 0}
     - target: {fileID: 6206037214011461106, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206037214011461106, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
       value: "Am\xE9rique du Nord"
       objectReference: {fileID: 0}
@@ -21038,6 +21086,10 @@ PrefabInstance:
     - target: {fileID: 6313766216309161545, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: maxPopulation
       value: 400000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6313766216309161545, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6313766216309161545, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
@@ -22506,6 +22558,10 @@ PrefabInstance:
     - target: {fileID: 6612470856991864265, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: maxPopulation
       value: 100000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612470856991864265, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6612470856991864265, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
@@ -24772,6 +24828,10 @@ PrefabInstance:
       value: 400000000
       objectReference: {fileID: 0}
     - target: {fileID: 7164560757620329266, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164560757620329266, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
       value: "Oc\xE9anie"
       objectReference: {fileID: 0}
@@ -24790,6 +24850,10 @@ PrefabInstance:
     - target: {fileID: 7215216726566118376, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: maxPopulation
       value: 500000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7215216726566118376, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7215216726566118376, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
@@ -25606,6 +25670,10 @@ PrefabInstance:
     - target: {fileID: 7797495508566517132, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: maxPopulation
       value: 75000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797495508566517132, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: isBuyingCigarettes
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7797495508566517132, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
