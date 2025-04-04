@@ -1,5 +1,6 @@
 ﻿using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -64,11 +65,12 @@ public class GameManager : MonoBehaviour
     [Tooltip("The GameEndScreen script")]
     [SerializeField] private GameEndScreen gameEndScreen;
 
-    private long _totalDeaths = 0;
-    private long _totalAddicted = 0;
+    public long totalDeaths = 0;
+    public long totalAddicted = 0;
     public long totalHealthy = 0;
+    public long globalPopulation = 0;
 
-    private string _name;
+    private string name;
 
     public static GameManager Instance { get; private set; }
 
@@ -81,6 +83,7 @@ public class GameManager : MonoBehaviour
         foreach(Region region in regions)
         {
             totalHealthy += region.healthyPopulation;
+            globalPopulation = totalHealthy;
         }
     }
 
@@ -89,49 +92,53 @@ public class GameManager : MonoBehaviour
         Instance = this;
         chooseName.SetActive(false);
         inGameUI.SetActive(true);
-        _name = nameField.text;
-        nameText.text = _name;
+        this.name = nameField.text;
+        nameText.text = this.name;
 
         InvokeRepeating(nameof(GameLoop), 0, 0.5f);
     }
 
     private void GameLoop()
     {
-        _totalAddicted = 0;
         foreach (Region region in regions)
         {
-            if (region.isBuyingCigarettes || region.healthyPopulation > 0)
+            if (region.isBuyingCigarettes)
             {
                 // When speedValue is equal to zero, the game is on pause
                 if (speedValue != 0)
-                {                   
-                    int lostPeople = (int)(region.addictedPopulation * (1 - cigarette.addiction));
+                {
+                    int newAddicts = (int)Mathf.Min(region.healthyPopulation, Mathf.FloorToInt(region.addictedPopulation * cigarette.influence));
+                    int deaths = Mathf.FloorToInt(region.addictedPopulation * cigarette.toxicite);
+                    int lostAddicts = Mathf.FloorToInt(region.addictedPopulation * (1 - cigarette.addiction));
+
+                    Debug.Log($"Saine: {region.healthyPopulation}, Malade: {region.addictedPopulation}, Morte: {region.deadPopulation}");
+
+                    /*
+                    int lostPeople = (int)(region.addictedPopulation * cigarette.addiction);
                     float newUsers = 0;
+                    int deaths = 0;
 
                     if (region.healthyPopulation > 0)
                     {
-                        newUsers = Mathf.Ceil(Mathf.Sqrt(region.addictedPopulation) * cigarette.influence);
+                        newUsers = region.addictedPopulation * cigarette.influence;
+                        if(region.addictedPopulation + newUsers > region.GetMaxPopulation())
+                        {
+                            newUsers = region.GetMaxPopulation() - region.addictedPopulation;
+                        }
                     }
-
-                    float deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
-
-                    // evolution in global population
-                    _totalDeaths += (long)deaths;
-                    _totalAddicted += region.addictedPopulation;
-                    totalHealthy -= (long)deaths;
-                    if (totalHealthy < 0)
+                   
+                    if(cigarette.deathProbability >= UnityEngine.Random.Range(1, 100))
                     {
-                        totalHealthy = 0;
+                        deaths = (int)(cigarette.deathRate * region.addictedPopulation);
                     }
 
-                    // Evolution of population
-                    // region.addictedPopulation -= (ulong)deaths;
-                    // region.addictedPopulation -= (ulong)lostPeople;
-                    // region.population -= (ulong)deaths;
-                    // region.addictedPopulation += (ulong)newUsers;
+                    */
+                    // evolution in global population
+                    ApplyGlobalEvolution(deaths, lostAddicts, newAddicts);
+                    
 
                     // Evolution in local population
-                    region.ApplyEvolution((long)deaths, (long)lostPeople, (long)newUsers);
+                    region.ApplyEvolution(deaths, lostAddicts, newAddicts);                    
 
                     moneyValue += (ulong)(region.addictedPopulation * cigarette.price);
                 }
@@ -147,11 +154,24 @@ public class GameManager : MonoBehaviour
         }
 
         // parse Millions/Billions
-        deathsText.text = $"Morts: {ParseNumber(_totalDeaths)}";
-        addictedText.text = $"Accros: {ParseNumber(_totalAddicted)}";
+        deathsText.text = $"Morts: {ParseNumber(this.totalDeaths)}";
+        addictedText.text = $"Accros: {ParseNumber(this.totalAddicted)}";
         moneyText.text = $"Argent: {ParseNumber(moneyValue)}€";
 
         CheckHealthyPeople();
+    }
+
+    private void ApplyGlobalEvolution(long deaths, long lostPeople, long newAddicted)
+    {
+        // Evolution of population
+        this.totalHealthy -= newAddicted;
+        this.totalAddicted += newAddicted - deaths - lostPeople;
+        this.totalDeaths += deaths;
+
+        // Clamp pour éviter les valeurs négatives
+        this.totalHealthy = (long)Mathf.Max(this.totalHealthy, 0);
+        this.totalAddicted = (long)Mathf.Max(this.totalAddicted, 0);
+        this.totalDeaths = (long)Mathf.Max(this.totalDeaths, 0);
     }
 
     private void CheckHealthyPeople()
@@ -284,11 +304,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void ResetCigarette()
     {
-        cigarette.price = 10f;
-        cigarette.toxicity = 0.1f;
-        cigarette.addiction = 1f;
-        cigarette.influence = 3f;
-    }
+      cigarette.price = 1f;
+        cigarette.toxicite = 0.01f;
+        cigarette.addiction = 0.9f;
+        cigarette.influence = 2;
+}
 
     /// <summary>
     /// Reset the population to all Regions

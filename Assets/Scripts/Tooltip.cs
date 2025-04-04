@@ -71,6 +71,8 @@ public class Tooltip : MonoBehaviour
         // When the region is bought
         price.gameObject.SetActive(false);
         unlockButton.gameObject.SetActive(false);
+        region.addictedPopulation++;
+        region.healthyPopulation--;
         addictedPopulation.gameObject.SetActive(true);
         deadPopulation.gameObject.SetActive(true);
         healthyPopulation.gameObject.SetActive(true);

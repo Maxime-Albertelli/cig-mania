@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -42,7 +42,7 @@ public class Region : MonoBehaviour
 
     private void Start()
     {
-        healthyPopulation = maxPopulation;
+        healthyPopulation = maxPopulation - addictedPopulation;
     }
 
     public void UpdateVisuals()
@@ -79,30 +79,14 @@ public class Region : MonoBehaviour
     public void ApplyEvolution(long deaths, long lostPeople, long newUsers)
     {
         // Evolution of population
-        this.addictedPopulation -= deaths;
-        this.addictedPopulation -= lostPeople;
-
-        this.healthyPopulation -= deaths;
         this.healthyPopulation -= newUsers;
-
-        this.addictedPopulation += newUsers;
+        this.addictedPopulation += newUsers - deaths - lostPeople;
         this.deadPopulation += deaths;
 
-        if (this.deadPopulation >= maxPopulation - 1)
-        {
-            this.deadPopulation = maxPopulation;
-        }
-
-        if (this.healthyPopulation <= 0)
-        {
-            this.healthyPopulation = 0;
-        }
-
-        if (this.addictedPopulation <= 0)
-        {
-            this.addictedPopulation = 0;
-        }
-
+        // Clamp pour éviter les valeurs négatives
+        this.healthyPopulation = (long)Mathf.Max(this.healthyPopulation, 0);
+        this.addictedPopulation = (long)Mathf.Max(this.addictedPopulation, 0);
+        this.deadPopulation = (long)Mathf.Max(this.deadPopulation, 0);
     }
 
     public void ResetPopulation()

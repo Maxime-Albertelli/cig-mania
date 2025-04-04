@@ -16461,11 +16461,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 581269710099311685, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: addictedPopulation
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 581269710099311685, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: isBuyingCigarettes
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 581269710099311685, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: <regionName>k__BackingField
@@ -20660,6 +20660,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4703947518251172198, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: addictedPopulation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4703947518251172198, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: isBuyingCigarettes
       value: 0
       objectReference: {fileID: 0}
@@ -20788,6 +20792,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1639509850}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: trustRate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: chooseName
       value: 
       objectReference: {fileID: 1539625665}
@@ -20824,6 +20832,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4587203478829621875}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: cigarette.price
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: gameVictoryPanel
       value: 
       objectReference: {fileID: 0}
@@ -20836,8 +20848,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2084948491}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: cigarette.toxicite
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: cigarette.toxicity
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: regions.Array.size
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: cigarette.addiction
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: cigarette.influence
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: addictionUpgradePanel

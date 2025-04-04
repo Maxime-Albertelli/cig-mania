@@ -210,7 +210,7 @@ public class UpgradeManager : MonoBehaviour
                     break;
 
                 case StatType.Toxicite:
-                    ModifyStat(ref GameManager.Instance.cigarette.toxicity, data);
+                    ModifyStat(ref GameManager.Instance.cigarette.toxicite, data);
                     break;
 
                 case StatType.Confiance:
@@ -243,9 +243,7 @@ public class UpgradeManager : MonoBehaviour
             stat += data.skillIncreaseAmount;
         }
 
-        Debug.Log("After : " + stat);
-
-    }
+    }    
 
     /// <summary>
     /// Verify if the upgrade is already obtained
