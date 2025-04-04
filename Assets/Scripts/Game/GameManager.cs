@@ -65,9 +65,13 @@ public class GameManager : MonoBehaviour
     [Tooltip("The GameEndScreen script")]
     [SerializeField] private GameEndScreen gameEndScreen;
 
+    [Tooltip("Total of all the dead people")]
     public long totalDeaths = 0;
+    [Tooltip("Total of all the addicted people")]
     public long totalAddicted = 0;
+    [Tooltip("Total of all the healthy people")]
     public long totalHealthy = 0;
+    [Tooltip("Total of all people")]
     public long globalPopulation = 0;
 
     private string name;
@@ -98,6 +102,14 @@ public class GameManager : MonoBehaviour
         InvokeRepeating(nameof(GameLoop), 0, 0.5f);
     }
 
+    // The Gameloop, due to time we have to keep it.
+    // Hard to maintain because of the time
+    // Could be more optimised
+
+    /// <summary>
+    /// The Gameloop, for now, check every 0.5 second if a region is buying cigarette
+    /// if true, check speed value, and then apply population evolution
+    /// </summary>
     private void GameLoop()
     {
         foreach (Region region in regions)
@@ -111,28 +123,6 @@ public class GameManager : MonoBehaviour
                     int deaths = Mathf.FloorToInt(region.addictedPopulation * cigarette.toxicite);
                     int lostAddicts = Mathf.FloorToInt(region.addictedPopulation * (1 - cigarette.addiction));
 
-                    Debug.Log($"Saine: {region.healthyPopulation}, Malade: {region.addictedPopulation}, Morte: {region.deadPopulation}");
-
-                    /*
-                    int lostPeople = (int)(region.addictedPopulation * cigarette.addiction);
-                    float newUsers = 0;
-                    int deaths = 0;
-
-                    if (region.healthyPopulation > 0)
-                    {
-                        newUsers = region.addictedPopulation * cigarette.influence;
-                        if(region.addictedPopulation + newUsers > region.GetMaxPopulation())
-                        {
-                            newUsers = region.GetMaxPopulation() - region.addictedPopulation;
-                        }
-                    }
-                   
-                    if(cigarette.deathProbability >= UnityEngine.Random.Range(1, 100))
-                    {
-                        deaths = (int)(cigarette.deathRate * region.addictedPopulation);
-                    }
-
-                    */
                     // evolution in global population
                     ApplyGlobalEvolution(deaths, lostAddicts, newAddicts);
                     
@@ -161,6 +151,12 @@ public class GameManager : MonoBehaviour
         CheckHealthyPeople();
     }
 
+    /// <summary>
+    /// Keeps track of the global population
+    /// </summary>
+    /// <param name="deaths">All the people who die today</param>
+    /// <param name="lostPeople">All the people who stop smoking</param>
+    /// <param name="newAddicted">All the people who start smoking</param>
     private void ApplyGlobalEvolution(long deaths, long lostPeople, long newAddicted)
     {
         // Evolution of population
@@ -174,6 +170,10 @@ public class GameManager : MonoBehaviour
         this.totalDeaths = (long)Mathf.Max(this.totalDeaths, 0);
     }
 
+    /// <summary>
+    /// Check if there are no more healthy people
+    /// When true, the game ends and show the victory screen
+    /// </summary>
     private void CheckHealthyPeople()
     {
         if(totalHealthy < 1)
@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// Check the trust value, if it's under 0, the game is lost
-    /// Set active the game over panel
+    /// Show the game over screen
     /// </summary>
     private void CheckTrust()
     {
@@ -304,10 +304,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void ResetCigarette()
     {
-      cigarette.price = 1f;
-        cigarette.toxicite = 0.01f;
+        cigarette.price = 1f;
+        cigarette.toxicite = 0.1f;
         cigarette.addiction = 0.9f;
-        cigarette.influence = 2;
+        cigarette.influence = 0.5f;
 }
 
     /// <summary>

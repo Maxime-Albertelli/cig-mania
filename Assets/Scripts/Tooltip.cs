@@ -10,12 +10,17 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     [SerializeField] private Button unlockButton;
+    [Tooltip("The country's cost")]
     [SerializeField] private TMP_Text price;
 
+    [Tooltip("The country's number of smoker")]
     [SerializeField] private TMP_Text addictedPopulation;
+    [Tooltip("The country's number of dead people")]
     [SerializeField] private TMP_Text deadPopulation;
+    [Tooltip("The country's number of healthy people")]
     [SerializeField] private TMP_Text healthyPopulation;
 
+    [Tooltip("The country's number of healthy people")]
     [SerializeField] private TMP_Text regionName;
     public static Tooltip instance;
 
@@ -48,12 +53,16 @@ public class Tooltip : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void UpdateRegion(Region newRegion)
+    /// <summary>
+    /// Update population in region
+    /// </summary>
+    /// <param name="regionToUpdate">Region to Update</param>
+    public void UpdateRegion(Region regionToUpdate)
     {
-        if (newRegion.healthyPopulation == 0)
+        if (regionToUpdate.healthyPopulation == 0)
             return;
         
-        region = newRegion;
+        region = regionToUpdate;
 
         // When the region isn't bought
         if (region.addictedPopulation == 0)

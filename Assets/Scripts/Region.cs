@@ -76,6 +76,12 @@ public class Region : MonoBehaviour
     }
 
     #region Population methods
+    /// <summary>
+    /// Keeps track of the regional population
+    /// </summary>
+    /// <param name="deaths">People who die today</param>
+    /// <param name="lostPeople">People who stop smoking</param>
+    /// <param name="newUsers">People who start smoking</param>
     public void ApplyEvolution(long deaths, long lostPeople, long newUsers)
     {
         // Evolution of population
@@ -89,10 +95,14 @@ public class Region : MonoBehaviour
         this.deadPopulation = (long)Mathf.Max(this.deadPopulation, 0);
     }
 
+    /// <summary>
+    /// Reset all the population value
+    /// </summary>
     public void ResetPopulation()
     {
         healthyPopulation = maxPopulation;
         addictedPopulation = 0;
+        deadPopulation = 0;
     }
     #endregion
 
