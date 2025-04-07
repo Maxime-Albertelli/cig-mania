@@ -15,10 +15,13 @@ public class Tooltip : MonoBehaviour
 
     [Tooltip("The country's number of smoker")]
     [SerializeField] private TMP_Text addictedPopulation;
+    [SerializeField] private Slider addictedPopulationSlider;
     [Tooltip("The country's number of dead people")]
     [SerializeField] private TMP_Text deadPopulation;
+    [SerializeField] private Slider deadPopulationSlider;
     [Tooltip("The country's number of healthy people")]
     [SerializeField] private TMP_Text healthyPopulation;
+    [SerializeField] private Slider healthyPopulationSlider;
 
     [Tooltip("The country's number of healthy people")]
     [SerializeField] private TMP_Text regionName;
@@ -69,9 +72,16 @@ public class Tooltip : MonoBehaviour
         {
             price.gameObject.SetActive(true);
             unlockButton.gameObject.SetActive(true);
+
             addictedPopulation.gameObject.SetActive(false);
+            addictedPopulationSlider.gameObject.SetActive(false);
+
             deadPopulation.gameObject.SetActive(false);
+            deadPopulationSlider.gameObject.SetActive(false);
+
             healthyPopulation.gameObject.SetActive(false);
+            healthyPopulationSlider.gameObject.SetActive(false);
+
             regionName.gameObject.SetActive(false);
             price.text = $"{region.GetRegionName()} : Débloquer pour {GameManager.ParseNumber(region.GetMaxPopulation() / 1000)} €";
             return;
@@ -82,9 +92,16 @@ public class Tooltip : MonoBehaviour
         unlockButton.gameObject.SetActive(false);
         region.addictedPopulation++;
         region.healthyPopulation--;
+
         addictedPopulation.gameObject.SetActive(true);
+        addictedPopulationSlider.gameObject.SetActive(true);
+
         deadPopulation.gameObject.SetActive(true);
+        deadPopulationSlider.gameObject.SetActive(true);
+
         healthyPopulation.gameObject.SetActive(true);
+        healthyPopulationSlider.gameObject.SetActive(true);
+
         regionName.gameObject.SetActive(true);
         regionName.text = region.GetRegionName();
 
@@ -96,21 +113,25 @@ public class Tooltip : MonoBehaviour
     private void UpdateDeadPopulation()
     {
         deadPopulation.text =
-            $"Population morte: {GameManager.ParseNumber(region.deadPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
-
+            $"Morts: {GameManager.ParseNumber(region.deadPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
+        deadPopulationSlider.value = region.deadPopulation;
+        deadPopulationSlider.maxValue = region.GetMaxPopulation();
     }
 
     private void UpdateHealthyPopulation()
     {
         healthyPopulation.text =
-            $"Population saine: {GameManager.ParseNumber(region.healthyPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
-
+            $"Sains: {GameManager.ParseNumber(region.healthyPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
+        healthyPopulationSlider.value = region.healthyPopulation;
+        healthyPopulationSlider.maxValue = region.GetMaxPopulation();
     }
 
     private void UpdateAddictedPopulation()
     {
         addictedPopulation.text =
-            $"Population Addicte: {GameManager.ParseNumber(region.addictedPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
+            $"Addictes: {GameManager.ParseNumber(region.addictedPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
+        addictedPopulationSlider.value = region.addictedPopulation;
+        addictedPopulationSlider.maxValue = region.GetMaxPopulation();
     }
     
     public void UnlockRegion()
