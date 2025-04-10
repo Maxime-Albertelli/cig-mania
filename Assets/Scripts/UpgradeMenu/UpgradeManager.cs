@@ -69,6 +69,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TMP_Text trustDescription;
     [Space(10)]
 
+    private UpgradeSO currentUpgrade;
+
     // List of all unlocked upgrade
     private List<UpgradeSO> unlockedUpgrade = new List<UpgradeSO>();
 
@@ -92,31 +94,31 @@ public class UpgradeManager : MonoBehaviour
     {
         // Initiate the description and title of each panel
         menuTitle.text = "Gestion des produits";
-        menuDescription.text = "Bonjour patron ! Bienvenu dans le département de R&D. Ici vous pouvez investir dans différents points de recherches.";
+        menuDescription.text = "Bonjour patron ! Bienvenue dans le département de R&D. Ici vous pouvez investir dans différents points de recherches.";
 
         priceTitle.text = "Prix\r\n_________________";
-        priceDescription.text = "Bienvenu dans la gestion des prix." +
-            "\nIci vous pouvez gérés le prix de vos produits !" +
+        priceDescription.text = "Bienvenue dans la gestion des prix." +
+            "\nIci vous pouvez gérer le prix de vos produits !" +
             "\nL'argent directement dans vos poches !";
 
         taxeTitle.text = "Taxe\r\n_________________";
-        taxeDescription.text = "Bienvenu dans la gestion des Taxes." +
-            "\nIci vous pouvez gérés les taxes sur vos produits !" +
+        taxeDescription.text = "Bienvenue dans la gestion des Taxes." +
+            "\nIci vous pouvez gérer les taxes sur vos produits !" +
             "\nNégociez avec l'état pour une reduction de taxes";
 
         influenceTitle.text = "Influence\r\n_________________";
-        influenceDescription.text = "Bienvenu dans la gestion de l'influence." +
-            "\nIci vous pouvez gérés l'influence de vos produits !" +
-            "\nPub, journaux, tik tok, influenceur, lobby, n'importe quoi pour vendre plus !";
+        influenceDescription.text = "Bienvenue dans la gestion de l'influence." +
+            "\nIci vous pouvez gérer l'influence de vos produits !" +
+            "\nPub, journaux, réseaux sociaux, influenceur, lobby, n'importe quoi pour vendre plus !";
 
         addictionTitle.text = "Addiction\r\n_________________";
-        addictionDescription.text = "Bienvenu dans la gestion de l'addiction." +
-            "\nIci vous pouvez gérés le gout de vos produits !" +
+        addictionDescription.text = "Bienvenue dans la gestion de l'addiction." +
+            "\nIci vous pouvez gérer le gout de vos produits !" +
             "\nSi on augmente la dose, le gout est meilleur, aucun risque sur la santé, n'est ce pas ?";
 
         trustTitle.text = "Confiance\r\n_________________";
-        trustDescription.text = "Bienvenu dans la gestion de la confiance." +
-            "\nIci vous pouvez gérés l'image de la compagnie." +
+        trustDescription.text = "Bienvenue dans la gestion de la confiance." +
+            "\nIci vous pouvez gérer l'image de la compagnie." +
             "\nSi nos ventes sont trop aggresives, les états le remarquerait ! Avec quelques pots de vins" +
             "\nIls se laisseront faire !";
     }
@@ -129,7 +131,8 @@ public class UpgradeManager : MonoBehaviour
     {
         if (PreReqsMet(upgrade))
         {
-            UnlockUpgrade(upgrade);
+            currentUpgrade = upgrade;
+            //UnlockUpgrade(upgrade);
         }
 
         ChangeDescription(upgrade);
@@ -281,6 +284,14 @@ public class UpgradeManager : MonoBehaviour
     public bool CanAffordUpgrade(UpgradeSO upgrade)
     {
         return GameManager.Instance.moneyValue >= upgrade.cost;
+    }
+
+    public void CallUnlockUpgrade()
+    {
+        if (currentUpgrade != null)
+            UnlockUpgrade(currentUpgrade);
+        else
+            Debug.Log("Aucune upgrade selectionee");
     }
 
     /// <summary>
