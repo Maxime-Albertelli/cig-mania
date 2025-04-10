@@ -8,6 +8,11 @@ public class Upgrade : MonoBehaviour
     [Header("Upgrade")]
     [SerializeField] private UpgradeSO upgradeInfo;
 
+    private void Start()
+    {
+        upgradeInfo.purchased = false;
+    }
+
     /// <summary>
     ///  Used in a button, when clicked, call the select Upgrade method in upgrade manager
     /// </summary>
@@ -20,7 +25,7 @@ public class Upgrade : MonoBehaviour
         }
         else
         {
-            Debug.Log("Already bought");
+            Debug.Log("Already selected");
         }
     }
 }
