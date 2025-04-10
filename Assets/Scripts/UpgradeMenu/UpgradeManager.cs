@@ -210,7 +210,7 @@ public class UpgradeManager : MonoBehaviour
                     break;
 
                 case StatType.Toxicite:
-                    ModifyStat(ref GameManager.Instance.cigarette.toxicity, data);
+                    ModifyStat(ref GameManager.Instance.cigarette.toxicite, data);
                     break;
 
                 case StatType.Confiance:
@@ -243,9 +243,7 @@ public class UpgradeManager : MonoBehaviour
             stat += data.skillIncreaseAmount;
         }
 
-        Debug.Log("After : " + stat);
-
-    }
+    }    
 
     /// <summary>
     /// Verify if the upgrade is already obtained
@@ -267,7 +265,6 @@ public class UpgradeManager : MonoBehaviour
     public bool PreReqsMet(UpgradeSO upgrade)
     {
         bool preReqsMet = false;
-        Debug.Log("Already have this one");
         if (!upgrade.purchased)
         {
             preReqsMet = upgrade.upgradePrerequisites.Count == 0 || upgrade.upgradePrerequisites.All(unlockedUpgrade.Contains);
@@ -303,5 +300,20 @@ public class UpgradeManager : MonoBehaviour
         GameManager.Instance.moneyValue -= (ulong)upgrade.cost;
         Debug.Log("Skill obtained : " + upgrade.name);
         SoundManager.PlaySound(SoundType.UPGRADE);
+    }
+
+    /// <summary>
+    /// Removes all the upgrades in unlockedUpgrade list
+    /// Uncheck purchased value
+    /// </summary>
+    public void ResetUpgradeList()
+    {
+        foreach(UpgradeSO upgrade in unlockedUpgrade)
+        {
+            upgrade.purchased = false;
+        }
+
+        unlockedUpgrade.Clear();
+
     }
 }

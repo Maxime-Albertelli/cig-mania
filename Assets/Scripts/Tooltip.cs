@@ -10,10 +10,21 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     [SerializeField] private Button unlockButton;
+    [Tooltip("The country's cost")]
     [SerializeField] private TMP_Text price;
 
-    public TMP_Text addictedPopulation;
-    public TMP_Text regionName;
+    [Tooltip("The country's number of smoker")]
+    [SerializeField] private TMP_Text addictedPopulation;
+    [SerializeField] private Slider addictedPopulationSlider;
+    [Tooltip("The country's number of dead people")]
+    [SerializeField] private TMP_Text deadPopulation;
+    [SerializeField] private Slider deadPopulationSlider;
+    [Tooltip("The country's number of healthy people")]
+    [SerializeField] private TMP_Text healthyPopulation;
+    [SerializeField] private Slider healthyPopulationSlider;
+
+    [Tooltip("The country's number of healthy people")]
+    [SerializeField] private TMP_Text regionName;
     public static Tooltip instance;
 
     private Region region;
@@ -26,13 +37,13 @@ public class Tooltip : MonoBehaviour
 
     private void Update()
     {
-        if (region == null)
-            return;
+        if (region == null) return;
 
-        if (region.addictedPopulation == 0)
-            return;
-        
         UpdateAddictedPopulation();
+
+        UpdateDeadPopulation();
+
+        UpdateHealthyPopulation();
     }
 
     public void Show()
@@ -45,50 +56,97 @@ public class Tooltip : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void UpdateRegion(Region newRegion)
+    /// <summary>
+    /// Update population in region
+    /// </summary>
+    /// <param name="regionToUpdate">Region to Update</param>
+    public void UpdateRegion(Region regionToUpdate)
     {
-        if (newRegion.population == 0)
+        if (regionToUpdate.healthyPopulation == 0)
             return;
         
-        region = newRegion;
+        region = regionToUpdate;
 
-        // When the region isn't buy
+        // When the region isn't bought
         if (region.addictedPopulation == 0)
         {
             price.gameObject.SetActive(true);
             unlockButton.gameObject.SetActive(true);
+
             addictedPopulation.gameObject.SetActive(false);
+            addictedPopulationSlider.gameObject.SetActive(false);
+
+            deadPopulation.gameObject.SetActive(false);
+            deadPopulationSlider.gameObject.SetActive(false);
+
+            healthyPopulation.gameObject.SetActive(false);
+            healthyPopulationSlider.gameObject.SetActive(false);
+
             regionName.gameObject.SetActive(false);
-            price.text = $"{region.regionName} : Débloquer pour {GameManager.ParseNumber(region.population / 1000)} €";
+            price.text = $"{region.GetRegionName()} : Débloquer pour {GameManager.ParseNumber(region.GetMaxPopulation() / 1000)} €";
             return;
         }
 
-        // When the region is buy
+        // When the region is bought
         price.gameObject.SetActive(false);
         unlockButton.gameObject.SetActive(false);
+        region.addictedPopulation++;
+        region.healthyPopulation--;
+
         addictedPopulation.gameObject.SetActive(true);
+        addictedPopulationSlider.gameObject.SetActive(true);
+
+        deadPopulation.gameObject.SetActive(true);
+        deadPopulationSlider.gameObject.SetActive(true);
+
+        healthyPopulation.gameObject.SetActive(true);
+        healthyPopulationSlider.gameObject.SetActive(true);
+
         regionName.gameObject.SetActive(true);
-        regionName.text = region.regionName;
+        regionName.text = region.GetRegionName();
+
         UpdateAddictedPopulation();
+        UpdateDeadPopulation();
+        UpdateHealthyPopulation();
+    }
+
+    private void UpdateDeadPopulation()
+    {
+        deadPopulation.text =
+            $"Morts: {GameManager.ParseNumber(region.deadPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
+        deadPopulationSlider.value = region.deadPopulation;
+        deadPopulationSlider.maxValue = region.GetMaxPopulation();
+    }
+
+    private void UpdateHealthyPopulation()
+    {
+        healthyPopulation.text =
+            $"Sains: {GameManager.ParseNumber(region.healthyPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
+        healthyPopulationSlider.value = region.healthyPopulation;
+        healthyPopulationSlider.maxValue = region.GetMaxPopulation();
     }
 
     private void UpdateAddictedPopulation()
     {
         addictedPopulation.text =
-            $"Population Addicte: {GameManager.ParseNumber(region.addictedPopulation)}/{GameManager.ParseNumber(region.population)}";
+            $"Addictes: {GameManager.ParseNumber(region.addictedPopulation)}/{GameManager.ParseNumber(region.GetMaxPopulation())}";
+        addictedPopulationSlider.value = region.addictedPopulation;
+        addictedPopulationSlider.maxValue = region.GetMaxPopulation();
     }
     
     public void UnlockRegion()
     {
-        ulong cost = region.population / 1000;
+        ulong cost = (ulong)region.GetMaxPopulation() / 1000;
 
         // The user can't unlock a region if he don't have enough money
         if (GameManager.Instance.moneyValue < cost)
         {
+            region.isBuyingCigarettes = false;
             price.text = "Pas assez d'argent !";
             return;
         }
 
+        region.isBuyingCigarettes = true;
         GameManager.Instance.moneyValue -= cost;
         
         region.addictedPopulation = 1;

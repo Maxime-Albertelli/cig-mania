@@ -1,5 +1,6 @@
 ﻿using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -64,10 +65,16 @@ public class GameManager : MonoBehaviour
     [Tooltip("The GameEndScreen script")]
     [SerializeField] private GameEndScreen gameEndScreen;
 
-    private ulong _totalDeaths;
-    private ulong _totalAddicted;
+    [Tooltip("Total of all the dead people")]
+    public long totalDeaths = 0;
+    [Tooltip("Total of all the addicted people")]
+    public long totalAddicted = 0;
+    [Tooltip("Total of all the healthy people")]
+    public long totalHealthy = 0;
+    [Tooltip("Total of all people")]
+    public long globalPopulation = 0;
 
-    private string _name;
+    private string name;
 
     public static GameManager Instance { get; private set; }
 
@@ -76,6 +83,12 @@ public class GameManager : MonoBehaviour
     {
         inGameUI.SetActive(false);
         gameEndPanel.SetActive(false);
+
+        foreach(Region region in regions)
+        {
+            totalHealthy += region.healthyPopulation;
+            globalPopulation = totalHealthy;
+        }
     }
 
     public void StartGame()
@@ -83,44 +96,44 @@ public class GameManager : MonoBehaviour
         Instance = this;
         chooseName.SetActive(false);
         inGameUI.SetActive(true);
-        _name = nameField.text;
-        nameText.text = _name;
+        this.name = nameField.text;
+        nameText.text = this.name;
 
         InvokeRepeating(nameof(GameLoop), 0, 0.5f);
     }
 
+    // The Gameloop, due to time we have to keep it.
+    // Hard to maintain because of the time
+    // Could be more optimised
+
+    /// <summary>
+    /// The Gameloop, for now, check every 0.5 second if a region is buying cigarette
+    /// if true, check speed value, and then apply population evolution
+    /// </summary>
     private void GameLoop()
     {
-        _totalAddicted = 0;
         foreach (Region region in regions)
         {
-            if (!region.isBuyingCigarettes) continue;
-
-            // When speedValue is equal to zero, the game is on pause
-            if (speedValue != 0)
+            if (region.isBuyingCigarettes)
             {
-                int userLoss = (int)(region.addictedPopulation * (1 - cigarette.addiction));
+                // When speedValue is equal to zero, the game is on pause
+                if (speedValue != 0)
+                {
+                    int newAddicts = (int)Mathf.Min(region.healthyPopulation, Mathf.FloorToInt(region.addictedPopulation * cigarette.influence));
+                    int deaths = Mathf.FloorToInt(region.addictedPopulation * cigarette.toxicite);
 
-                float newUsers = Mathf.Ceil(Mathf.Sqrt(region.addictedPopulation) * cigarette.influence);
+                    // evolution in global population
+                    ApplyGlobalEvolution(deaths, newAddicts);
+                    
 
-                float deaths = Mathf.Ceil(region.addictedPopulation * cigarette.toxicity);
-                _totalDeaths += (ulong)deaths;
+                    // Evolution in local population
+                    region.ApplyEvolution(deaths, newAddicts);                    
 
-                // Evolution of population
-                region.addictedPopulation -= (ulong)deaths;
-                region.addictedPopulation -= (ulong)userLoss;
-                region.population -= (ulong)deaths;
-                region.addictedPopulation += (ulong)newUsers;
-                if (region.addictedPopulation > region.population)
-                    region.addictedPopulation = region.population;
+                    moneyValue += (ulong)(region.addictedPopulation * cigarette.price);
+                }
 
-                moneyValue += (ulong)(userLoss * cigarette.price);
+                region.UpdateVisuals();
             }
-            
-
-            region.UpdateVisuals();
-            _totalAddicted += region.addictedPopulation;
-
         }
 
         // Evolution of trust
@@ -130,15 +143,50 @@ public class GameManager : MonoBehaviour
         }
 
         // parse Millions/Billions
-        deathsText.text = $"Morts: {ParseNumber(_totalDeaths)}";
-        addictedText.text = $"Accros: {ParseNumber(_totalAddicted)}";
-        moneyText.text = $"Argent: {ParseNumber(moneyValue)}€";   
+        deathsText.text = $"Morts: {ParseNumber(this.totalDeaths)}";
+        addictedText.text = $"Accros: {ParseNumber(this.totalAddicted)}";
+        moneyText.text = $"Argent: {ParseNumber(moneyValue)}€";
+
+        CheckHealthyPeople();
+    }
+
+    /// <summary>
+    /// Keeps track of the global population
+    /// </summary>
+    /// <param name="deaths">All the people who die today</param>
+    /// <param name="newAddicted">All the people who start smoking</param>
+    private void ApplyGlobalEvolution(long deaths, long newAddicted)
+    {
+        // Evolution of population
+        this.totalHealthy -= newAddicted;
+        this.totalAddicted += newAddicted - deaths;
+        this.totalDeaths += deaths;
+
+        // Clamp pour éviter les valeurs négatives
+        this.totalHealthy = (long)Mathf.Max(this.totalHealthy, 0);
+        this.totalAddicted = (long)Mathf.Max(this.totalAddicted, 0);
+        this.totalDeaths = (long)Mathf.Max(this.totalDeaths, 0);
+    }
+
+    /// <summary>
+    /// Check if there are no more healthy people
+    /// When true, the game ends and show the victory screen
+    /// </summary>
+    private void CheckHealthyPeople()
+    {
+        if(totalHealthy < 1)
+        {
+            speedValue = 0;
+            gameEndScreen.SetVictory(true);
+            gameEndScreen.ApplyDescription();
+            gameEndPanel.SetActive(true);
+        }
     }
 
     /// <summary>
     /// Parse the number to Millions/Billions keeping 2 decimal places
     /// </summary>
-    /// <param name="number"></param>
+    /// <param name="number">in ulong</param>
     /// <returns></returns>
     public static string ParseNumber(ulong number)
     {
@@ -150,7 +198,23 @@ public class GameManager : MonoBehaviour
             _ => $"{number / 1000000000f:F2}B"
         };
     }
-      
+
+    /// <summary>
+    /// Parse the number to Millions/Billions keeping 2 decimal places
+    /// </summary>
+    /// <param name="number">in long</param>
+    /// <returns></returns>
+    public static string ParseNumber(long number)
+    {
+        return number switch
+        {
+            < 1000 => number.ToString(),
+            < 1000000 => $"{number / 1000f:F2}K",
+            < 1000000000 => $"{number / 1000000f:F2}M",
+            _ => $"{number / 1000000000f:F2}B"
+        };
+    }
+
     void OnMouseUpAsButton()
     {
         regionTooltip.Hide();
@@ -185,7 +249,7 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// Check the trust value, if it's under 0, the game is lost
-    /// Set active the game over panel
+    /// Show the game over screen
     /// </summary>
     private void CheckTrust()
     {
@@ -202,14 +266,14 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Change the value of trust if a big changment happened
+    /// Add trust by flat point
     /// Example : A +20 in trust or a -3.5
     /// </summary>
-    /// <param name="trust">The new trust value to set</param>
+    /// <param name="trust">The trust value to add</param>
     private void UpdateTrust(float trust)
     {
-        trustBar.value = trust;
-        TrustText.text = trust.ToString("00");
+        trustBar.value += trust;
+        TrustText.text = trustBar.value.ToString("00");
     }
 
     #region Reset Methods
@@ -225,19 +289,34 @@ public class GameManager : MonoBehaviour
         ResetUpgrade();
     }
 
+    /// <summary>
+    /// Lock all the upgrades
+    /// </summary>
     private void ResetUpgrade()
     {
-        throw new NotImplementedException();
+        UpgradeManager.instance.ResetUpgradeList();
     }
 
+    /// <summary>
+    /// Reset the cigarette coeff
+    /// </summary>
     private void ResetCigarette()
     {
-        throw new NotImplementedException();
-    }
+        cigarette.price = 1f;
+        cigarette.toxicite = 0.1f;
+        cigarette.addiction = 0.9f;
+        cigarette.influence = 0.5f;
+}
 
+    /// <summary>
+    /// Reset the population to all Regions
+    /// </summary>
     private void ResetPopulation()
     {
-        throw new NotImplementedException();
+        foreach (Region region in regions) 
+        { 
+            region.ResetPopulation();
+        }
     }
     #endregion
 }

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 /// <summary>
 /// Informations about cigarette
@@ -6,8 +7,12 @@ using System;
 [Serializable]
 public class Cigarette
 {
-    public float price = 10f;
-    public float toxicity = 0.1f;
-    public float addiction = 1f;
-    public float influence = 3f;
+    [Tooltip("Price per cigarette")]
+    public float price = 1f;
+    [Tooltip("Toxicity coeff, the higher the value is, more people will die")]
+    public float toxicite = 0.1f;
+    [Tooltip("Addiction coeff, the lower the value is, less people will be addicted")]
+    public float addiction = 0.1f;
+    [Tooltip("influence coeff, the higher the value is, more people will become addicted")]
+    public float influence = 0.5f;
 }
