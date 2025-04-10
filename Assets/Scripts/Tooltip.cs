@@ -147,7 +147,8 @@ public class Tooltip : MonoBehaviour
 
         region.isBuyingCigarettes = true;
         GameManager.Instance.moneyValue -= cost;
-        
+
+        region.GetComponentInChildren<ParticleSystem>().Play();
         region.addictedPopulation = 1;
         region.healthyPopulation = region.healthyPopulation - region.addictedPopulation;
         UpdateRegion(region);
