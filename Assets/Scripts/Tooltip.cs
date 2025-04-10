@@ -57,57 +57,56 @@ public class Tooltip : MonoBehaviour
     }
 
     /// <summary>
-    /// Update population in region
+    /// Update region's population in the UI
     /// </summary>
-    /// <param name="regionToUpdate">Region to Update</param>
-    public void UpdateRegion(Region regionToUpdate)
+    /// <param name="region">region to set</param>
+    public void UpdateRegion(Region region)
     {
-        if (regionToUpdate.healthyPopulation == 0)
-            return;
-        
-        region = regionToUpdate;
+        this.region = region;
 
         // When the region isn't bought
-        if (region.addictedPopulation == 0)
+        if (this.region.addictedPopulation == 0)
         {
-            price.gameObject.SetActive(true);
-            unlockButton.gameObject.SetActive(true);
-
-            addictedPopulation.gameObject.SetActive(false);
-            addictedPopulationSlider.gameObject.SetActive(false);
-
-            deadPopulation.gameObject.SetActive(false);
-            deadPopulationSlider.gameObject.SetActive(false);
-
-            healthyPopulation.gameObject.SetActive(false);
-            healthyPopulationSlider.gameObject.SetActive(false);
-
-            regionName.gameObject.SetActive(false);
-            price.text = $"{region.GetRegionName()} : Débloquer pour {GameManager.ParseNumber(region.GetMaxPopulation() / 1000)} €";
+            ShowRegionInfo(false);
             return;
         }
 
         // When the region is bought
-        price.gameObject.SetActive(false);
-        unlockButton.gameObject.SetActive(false);
-        region.addictedPopulation++;
-        region.healthyPopulation--;
-
-        addictedPopulation.gameObject.SetActive(true);
-        addictedPopulationSlider.gameObject.SetActive(true);
-
-        deadPopulation.gameObject.SetActive(true);
-        deadPopulationSlider.gameObject.SetActive(true);
-
-        healthyPopulation.gameObject.SetActive(true);
-        healthyPopulationSlider.gameObject.SetActive(true);
-
-        regionName.gameObject.SetActive(true);
-        regionName.text = region.GetRegionName();
+        ShowRegionInfo(true);
 
         UpdateAddictedPopulation();
         UpdateDeadPopulation();
         UpdateHealthyPopulation();
+    }
+
+    /// <summary>
+    /// Shows the infos of the region 
+    /// </summary>
+    /// <param name="bought">True if the region has been bought</param>
+    private void ShowRegionInfo(bool bought)
+    {
+        price.gameObject.SetActive(!bought);
+        unlockButton.gameObject.SetActive(!bought);
+
+        addictedPopulation.gameObject.SetActive(bought);
+        addictedPopulationSlider.gameObject.SetActive(bought);
+
+        deadPopulation.gameObject.SetActive(bought);
+        deadPopulationSlider.gameObject.SetActive(bought);
+
+        healthyPopulation.gameObject.SetActive(bought);
+        healthyPopulationSlider.gameObject.SetActive(bought);
+
+        if (bought)
+        {
+            regionName.gameObject.SetActive(true);
+            regionName.text = region.GetRegionName();
+        }
+        else
+        {
+            regionName.gameObject.SetActive(false);
+            price.text = $"{region.GetRegionName()} : Débloquer pour {GameManager.ParseNumber(region.GetMaxPopulation() / 1000)} €";
+        }
     }
 
     private void UpdateDeadPopulation()
@@ -150,6 +149,7 @@ public class Tooltip : MonoBehaviour
         GameManager.Instance.moneyValue -= cost;
         
         region.addictedPopulation = 1;
+        region.healthyPopulation = region.healthyPopulation - region.addictedPopulation;
         UpdateRegion(region);
     }
     

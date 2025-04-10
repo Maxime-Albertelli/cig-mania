@@ -33,7 +33,7 @@ public class Region : MonoBehaviour
     [Tooltip("Checked means this region can buy cigarettes")]
     public bool isBuyingCigarettes;
     [Tooltip("Checked means this region is selected")]
-    public bool isSelected;
+    [SerializeField] private bool isSelected = false;
 
     private void Awake()
     {
@@ -61,18 +61,17 @@ public class Region : MonoBehaviour
             spriteShape.color = addictColor;
         }
     }
-    
 
-    public void OnMouseUpAsButton() 
+    private void OnMouseDown()
     {
-        Tooltip.instance.UpdateRegion(this);
         Tooltip.instance.Show();
+        Tooltip.instance.UpdateRegion(this);
         // Disable blink on other regions
-        for (int i = 0; i < manager.regions.Length; ++i)
+        for (int i = 0; i < manager.regions.Length; i++)
         {
             manager.regions[i].isSelected = false;
         }
-        isSelected = true;
+        this.isSelected = true;
     }
 
     #region Population methods
@@ -123,6 +122,16 @@ public class Region : MonoBehaviour
     public long GetMaxPopulation()
     {
         return this.maxPopulation;
+    }
+
+    public bool IsSelected()
+    {
+        return this.isSelected;
+    }
+
+    public void SetSelected(bool isSelected)
+    {
+        this.isSelected = isSelected;
     }
     #endregion
 }

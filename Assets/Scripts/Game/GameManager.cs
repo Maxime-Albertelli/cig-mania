@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
                 // When speedValue is equal to zero, the game is on pause
                 if (speedValue != 0)
                 {
-                    int newAddicts = (int)Mathf.Min(region.healthyPopulation, Mathf.FloorToInt(region.addictedPopulation * cigarette.influence));
+                    int newAddicts = (int)Mathf.Min(region.healthyPopulation, Mathf.FloorToInt(region.addictedPopulation * (1 + cigarette.influence)));
                     int deaths = Mathf.FloorToInt(region.addictedPopulation * cigarette.toxicite);
 
                     // evolution in global population
@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
         regionTooltip.Hide();
         for (int i = 0; i < regions.Length; i++)
         {
-            regions[i].isSelected = false;
+            regions[i].SetSelected(false);
         }
     }
 
@@ -229,7 +229,7 @@ public class GameManager : MonoBehaviour
         // On Click
         if (Input.GetMouseButtonDown(0))
         {
-            var position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             position.z = 0;
             Instantiate(particleClick, position, Quaternion.identity);
         }
