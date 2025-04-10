@@ -121,14 +121,13 @@ public class GameManager : MonoBehaviour
                 {
                     int newAddicts = (int)Mathf.Min(region.healthyPopulation, Mathf.FloorToInt(region.addictedPopulation * cigarette.influence));
                     int deaths = Mathf.FloorToInt(region.addictedPopulation * cigarette.toxicite);
-                    int lostAddicts = Mathf.FloorToInt(region.addictedPopulation * (1 - cigarette.addiction));
 
                     // evolution in global population
-                    ApplyGlobalEvolution(deaths, lostAddicts, newAddicts);
+                    ApplyGlobalEvolution(deaths, newAddicts);
                     
 
                     // Evolution in local population
-                    region.ApplyEvolution(deaths, lostAddicts, newAddicts);                    
+                    region.ApplyEvolution(deaths, newAddicts);                    
 
                     moneyValue += (ulong)(region.addictedPopulation * cigarette.price);
                 }
@@ -155,13 +154,12 @@ public class GameManager : MonoBehaviour
     /// Keeps track of the global population
     /// </summary>
     /// <param name="deaths">All the people who die today</param>
-    /// <param name="lostPeople">All the people who stop smoking</param>
     /// <param name="newAddicted">All the people who start smoking</param>
-    private void ApplyGlobalEvolution(long deaths, long lostPeople, long newAddicted)
+    private void ApplyGlobalEvolution(long deaths, long newAddicted)
     {
         // Evolution of population
         this.totalHealthy -= newAddicted;
-        this.totalAddicted += newAddicted - deaths - lostPeople;
+        this.totalAddicted += newAddicted - deaths;
         this.totalDeaths += deaths;
 
         // Clamp pour éviter les valeurs négatives

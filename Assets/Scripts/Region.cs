@@ -80,19 +80,28 @@ public class Region : MonoBehaviour
     /// Keeps track of the regional population
     /// </summary>
     /// <param name="deaths">People who die today</param>
-    /// <param name="lostPeople">People who stop smoking</param>
     /// <param name="newUsers">People who start smoking</param>
-    public void ApplyEvolution(long deaths, long lostPeople, long newUsers)
+    public void ApplyEvolution(long deaths, long newUsers)
     {
         // Evolution of population
         this.healthyPopulation -= newUsers;
-        this.addictedPopulation += newUsers - deaths - lostPeople;
+        this.addictedPopulation += newUsers - deaths;
         this.deadPopulation += deaths;
 
         // Clamp pour éviter les valeurs négatives
         this.healthyPopulation = (long)Mathf.Max(this.healthyPopulation, 0);
         this.addictedPopulation = (long)Mathf.Max(this.addictedPopulation, 0);
         this.deadPopulation = (long)Mathf.Max(this.deadPopulation, 0);
+
+        if(this.deadPopulation > this.maxPopulation)
+        {
+            this.deadPopulation = this.maxPopulation;
+        }
+
+        if (this.addictedPopulation > this.maxPopulation)
+        {
+            this.addictedPopulation = this.maxPopulation;
+        }
     }
 
     /// <summary>
