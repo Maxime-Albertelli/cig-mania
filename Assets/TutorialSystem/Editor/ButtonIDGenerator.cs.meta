@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: e77c519f8ce79473ebd39106f0382014
+AssetOrigin:
+  serializedVersion: 1
+  productId: 315072
+  packageName: Simple UI Onboarding System
+  packageVersion: 1.0
+  assetPath: Assets/TutorialSystem/Editor/ButtonIDGenerator.cs
+  uploadId: 743392
