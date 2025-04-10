@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Manage the panels and apply all the effect of an upgrade
@@ -328,6 +330,7 @@ public class UpgradeManager : MonoBehaviour
         upgrade.purchased = true;
         unlockedUpgrade.Add(upgrade);
         GameManager.Instance.moneyValue -= (ulong)upgrade.cost;
+        //upgrade.GameObject().GetComponent<Button>();
         Debug.Log("Skill obtained : " + upgrade.name);
         SoundManager.PlaySound(SoundType.UPGRADE);
     }
