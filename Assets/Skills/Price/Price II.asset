@@ -19,8 +19,9 @@ MonoBehaviour:
   isAbility: 0
   upgradeName: Price II
   overrideDescription: 0
-  description: System.Collections.Generic.List`1[UpgradeData] augmente Price de 50%.
+  description: Price II augmente Prix de 50%.
   upgradePrerequisites:
   - {fileID: 11400000, guid: 3cb60c5b854e88340862df4295f014aa, type: 2}
   tier: 1
   cost: 1000
+  purchased: 0

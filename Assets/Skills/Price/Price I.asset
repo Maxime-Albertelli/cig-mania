@@ -19,7 +19,8 @@ MonoBehaviour:
   isAbility: 0
   upgradeName: Price I
   overrideDescription: 0
-  description: Price I augmente Price de 10%.
+  description: Price I augmente Prix de 10%.
   upgradePrerequisites: []
   tier: 0
   cost: 500
+  purchased: 0

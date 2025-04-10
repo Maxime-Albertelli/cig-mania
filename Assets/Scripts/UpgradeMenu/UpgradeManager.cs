@@ -39,6 +39,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TMP_Text priceTitle;
     [Tooltip("The title text of the price upgrade menu")]
     [SerializeField] private TMP_Text priceDescription;
+    [Tooltip("The text to show the cost of the price upgrade")]
+    [SerializeField] private TMP_Text priceCost;
     [Space(10)]
 
     [Header("Text panel taxes")]
@@ -46,6 +48,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TMP_Text taxeTitle;
     [Tooltip("The description text of the taxe upgrade menu")]
     [SerializeField] private TMP_Text taxeDescription;
+    [Tooltip("The text to show the cost of the taxe upgrade")]
+    [SerializeField] private TMP_Text taxeCost;
     [Space(10)]
 
     [Header("Text panel influence")]
@@ -53,6 +57,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TMP_Text influenceTitle;
     [Tooltip("The description text of the influence upgrade menu")]
     [SerializeField] private TMP_Text influenceDescription;
+    [Tooltip("The text to show the cost of the influence upgrade")]
+    [SerializeField] private TMP_Text influenceCost;
     [Space(10)]
 
     [Header("Text panel addiction")]
@@ -60,6 +66,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TMP_Text addictionTitle;
     [Tooltip("The description text of the addiction upgrade menu")]
     [SerializeField] private TMP_Text addictionDescription;
+    [Tooltip("The text to show the cost of the addiction upgrade")]
+    [SerializeField] private TMP_Text addictionCost;
     [Space(10)]
 
     [Header("Text panel trust")]
@@ -67,6 +75,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TMP_Text trustTitle;
     [Tooltip("The description text of the trust upgrade menu")]
     [SerializeField] private TMP_Text trustDescription;
+    [Tooltip("The text to show the cost of the trust upgrade")]
+    [SerializeField] private TMP_Text trustCost;
     [Space(10)]
 
     private UpgradeSO currentUpgrade;
@@ -100,27 +110,32 @@ public class UpgradeManager : MonoBehaviour
         priceDescription.text = "Bienvenue dans la gestion des prix." +
             "\nIci vous pouvez gérer le prix de vos produits !" +
             "\nL'argent directement dans vos poches !";
+        priceCost.text = "Veuillez sélectionner une amélioration";
 
         taxeTitle.text = "Taxe\r\n_________________";
         taxeDescription.text = "Bienvenue dans la gestion des Taxes." +
             "\nIci vous pouvez gérer les taxes sur vos produits !" +
             "\nNégociez avec l'état pour une reduction de taxes";
+        taxeCost.text = "Veuillez sélectionner une amélioration";
 
         influenceTitle.text = "Influence\r\n_________________";
         influenceDescription.text = "Bienvenue dans la gestion de l'influence." +
             "\nIci vous pouvez gérer l'influence de vos produits !" +
             "\nPub, journaux, réseaux sociaux, influenceur, lobby, n'importe quoi pour vendre plus !";
+        influenceCost.text = "Veuillez sélectionner une amélioration";
 
         addictionTitle.text = "Addiction\r\n_________________";
         addictionDescription.text = "Bienvenue dans la gestion de l'addiction." +
             "\nIci vous pouvez gérer le gout de vos produits !" +
             "\nSi on augmente la dose, le gout est meilleur, aucun risque sur la santé, n'est ce pas ?";
+        addictionCost.text = "Veuillez sélectionner une amélioration";
 
         trustTitle.text = "Confiance\r\n_________________";
         trustDescription.text = "Bienvenue dans la gestion de la confiance." +
             "\nIci vous pouvez gérer l'image de la compagnie." +
             "\nSi nos ventes sont trop aggresives, les états le remarquerait ! Avec quelques pots de vins" +
             "\nIls se laisseront faire !";
+        trustCost.text = "Veuillez sélectionner une amélioration";
     }
 
     /// <summary>
@@ -148,24 +163,28 @@ public class UpgradeManager : MonoBehaviour
         {
             priceTitle.text = upgrade.name + "\r\n_________________";
             priceDescription.text = upgrade.description;
+            priceCost.text = upgrade.cost.ToString() + "€";
         }
 
         if (taxeUpgradePanel.activeSelf)
         {
             taxeTitle.text = upgrade.name + "\r\n_________________";
             taxeDescription.text = upgrade.description;
+            taxeCost.text = upgrade.cost.ToString() + "€";
         }
 
         if (influenceUpgradePanel.activeSelf)
         {
             influenceTitle.text = upgrade.name + "\r\n_________________";
             influenceDescription.text = upgrade.description;
+            influenceCost.text = upgrade.cost.ToString() + "€";
         }
 
         if (addictionUpgradePanel.activeSelf)
         {
             addictionTitle.text = upgrade.name + "\r\n_________________";
             addictionDescription.text = upgrade.description;
+            addictionCost.text = upgrade.cost.ToString() + "€";
         }
     }
 
@@ -271,7 +290,6 @@ public class UpgradeManager : MonoBehaviour
         if (!upgrade.purchased)
         {
             preReqsMet = upgrade.upgradePrerequisites.Count == 0 || upgrade.upgradePrerequisites.All(unlockedUpgrade.Contains);
-            upgrade.purchased = true;
         }
         return preReqsMet;
     }
@@ -288,7 +306,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void CallUnlockUpgrade()
     {
-        if (currentUpgrade != null)
+        if (currentUpgrade != null && PreReqsMet(currentUpgrade))
             UnlockUpgrade(currentUpgrade);
         else
             Debug.Log("Aucune upgrade selectionee");
@@ -307,6 +325,7 @@ public class UpgradeManager : MonoBehaviour
             return;
         }
         ApplyEffect(upgrade);
+        upgrade.purchased = true;
         unlockedUpgrade.Add(upgrade);
         GameManager.Instance.moneyValue -= (ulong)upgrade.cost;
         Debug.Log("Skill obtained : " + upgrade.name);
