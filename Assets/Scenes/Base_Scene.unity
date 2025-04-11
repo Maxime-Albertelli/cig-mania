@@ -26360,13 +26360,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce10c03ca5baa34ca97cc4116272c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialMessagePrefab: {fileID: 0}
-  canvas: {fileID: 0}
-  topscreen: {fileID: 0}
-  trust: {fileID: 0}
-  play: {fileID: 0}
-  upgrade: {fileID: 0}
-  map: {fileID: 0}
+  tutorialMessagePrefab: {fileID: 7186182733145621671, guid: a609dbf7751fe844fb589c637c147e51, type: 3}
+  canvas: {fileID: 1782168839}
+  topscreen: {fileID: 1290495922}
+  trust: {fileID: 395746315}
+  play: {fileID: 686655003}
+  upgrade: {fileID: 1195348354}
+  map: {fileID: 1947614289}
 --- !u!1 &746176280
 GameObject:
   m_ObjectHideFlags: 0
