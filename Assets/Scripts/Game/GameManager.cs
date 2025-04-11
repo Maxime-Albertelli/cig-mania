@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
 
     private string name;
 
+    public float time = 0f;
+
     public static GameManager Instance { get; private set; }
 
 
@@ -119,15 +121,38 @@ public class GameManager : MonoBehaviour
                 // When speedValue is equal to zero, the game is on pause
                 if (speedValue != 0)
                 {
-                    int newAddicts = (int)Mathf.Min(region.healthyPopulation, Mathf.FloorToInt(region.addictedPopulation * (1 + cigarette.influence)));
-                    int deaths = Mathf.FloorToInt(region.addictedPopulation * cigarette.toxicite);
+                    long newDeaths = 0;
+                    long newAddicts = 0;
 
-                    // evolution in global population
-                    ApplyGlobalEvolution(deaths, newAddicts);
+                    if (region.healthyPopulation > 0)
+                    {
+                        // Every 2 seconds a person become an addict
+                        if (time % 2 == 0)
+                        {
+                            newAddicts++;
+                        }
+                    }
+
+                    if (region.addictedPopulation > 0)
+                    {
+                        // Every 9 seconds a person become dead
+                        if (time % 9 == 0)
+                        {
+                            newDeaths++;
+                        }
+                    }
+
+                        // Multiply the new addicts and deaths by their respectives coeff
+                        newAddicts *= (long)cigarette.influence;
+                        newDeaths *= (long)cigarette.toxicite;
+                    
+
+                        // evolution in global population
+                        ApplyGlobalEvolution(newDeaths, newAddicts);
                     
 
                     // Evolution in local population
-                    region.ApplyEvolution(deaths, newAddicts);                    
+                    region.ApplyEvolution(newDeaths, newAddicts);                    
 
                     moneyValue += (ulong)(region.addictedPopulation * cigarette.price);
                 }
@@ -148,24 +173,47 @@ public class GameManager : MonoBehaviour
         moneyText.text = $"Argent: {ParseNumber(moneyValue)}€";
 
         CheckHealthyPeople();
+
+        time += 0.5f;
     }
 
     /// <summary>
     /// Keeps track of the global population
     /// </summary>
     /// <param name="deaths">All the people who die today</param>
-    /// <param name="newAddicted">All the people who start smoking</param>
-    private void ApplyGlobalEvolution(long deaths, long newAddicted)
+    /// <param name="newUsers">All the people who start smoking</param>
+    private void ApplyGlobalEvolution(long deaths, long newUsers)
     {
         // Evolution of population
-        this.totalHealthy -= newAddicted;
-        this.totalAddicted += newAddicted - deaths;
+        this.totalHealthy -= newUsers;
+        this.totalAddicted += newUsers;
+
+        this.totalAddicted -= deaths;
         this.totalDeaths += deaths;
 
         // Clamp pour éviter les valeurs négatives
-        this.totalHealthy = (long)Mathf.Max(this.totalHealthy, 0);
-        this.totalAddicted = (long)Mathf.Max(this.totalAddicted, 0);
-        this.totalDeaths = (long)Mathf.Max(this.totalDeaths, 0);
+        if (totalHealthy < 0)
+        {
+            totalHealthy = 0;
+        }
+        if (totalAddicted < 0)
+        {
+            totalAddicted = 0;
+        }
+        if (totalDeaths < 0)
+        {
+            totalDeaths = 0;
+        }
+
+        if (this.totalDeaths > this.globalPopulation)
+        {
+            this.totalDeaths = this.globalPopulation;
+        }
+
+        if (this.totalAddicted > this.globalPopulation)
+        {
+            this.totalAddicted = this.globalPopulation;
+        }
     }
 
     /// <summary>
@@ -303,9 +351,9 @@ public class GameManager : MonoBehaviour
     private void ResetCigarette()
     {
         cigarette.price = 1f;
-        cigarette.toxicite = 0.1f;
+        cigarette.toxicite = 0;
         cigarette.addiction = 0.9f;
-        cigarette.influence = 0.5f;
+        cigarette.influence = 1;
 }
 
     /// <summary>

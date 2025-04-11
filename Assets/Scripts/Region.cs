@@ -84,13 +84,24 @@ public class Region : MonoBehaviour
     {
         // Evolution of population
         this.healthyPopulation -= newUsers;
-        this.addictedPopulation += newUsers - deaths;
+        this.addictedPopulation += newUsers;
+
+        this.addictedPopulation -= deaths;
         this.deadPopulation += deaths;
 
         // Clamp pour éviter les valeurs négatives
-        this.healthyPopulation = (long)Mathf.Max(this.healthyPopulation, 0);
-        this.addictedPopulation = (long)Mathf.Max(this.addictedPopulation, 0);
-        this.deadPopulation = (long)Mathf.Max(this.deadPopulation, 0);
+        if(healthyPopulation < 0)
+        {
+            healthyPopulation = 0;
+        }
+        if (addictedPopulation < 0)
+        {
+            addictedPopulation = 0;
+        }
+        if (deadPopulation < 0)
+        {
+            deadPopulation = 0;
+        }
 
         if(this.deadPopulation > this.maxPopulation)
         {

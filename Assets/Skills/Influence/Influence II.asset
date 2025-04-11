@@ -17,10 +17,10 @@ MonoBehaviour:
     skillIncreaseAmount: 20
     isPercentage: 1
   - statType: 3
-    skillIncreaseAmount: 60
-    isPercentage: 1
+    skillIncreaseAmount: 4
+    isPercentage: 0
   - statType: 1
-    skillIncreaseAmount: 5
+    skillIncreaseAmount: 3
     isPercentage: 0
   isAbility: 1
   upgradeName: Influence II
@@ -30,3 +30,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94f140c4ef1c14e4a9bb9813d9edc805, type: 2}
   tier: 1
   cost: 450
+  purchased: 0

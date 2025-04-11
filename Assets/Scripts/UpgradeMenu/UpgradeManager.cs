@@ -197,25 +197,6 @@ public class UpgradeManager : MonoBehaviour
     /// <exception cref="ArgumentOutOfRangeException">Throw an exception if a new state type has been added but not in the switch case</exception>
     private void ApplyEffect(UpgradeSO upgrade)
     {
-        /*
-        // Upgrade prices
-        if (upgrade.prices.Length > upgrade.actualLevel)
-            GameManager.Instance.cigarette.price += upgrade.prices[upgrade.actualLevel];
-
-        // Upgrade toxicities
-        if (upgrade.toxicities.Length > upgrade.actualLevel)
-            GameManager.Instance.cigarette.toxicity *= upgrade.toxicities[upgrade.actualLevel];
-
-        // Upgrade addictions
-        var addiction = GameManager.Instance.cigarette.addiction;
-        if (upgrade.addictions.Length > upgrade.actualLevel)
-            GameManager.Instance.cigarette.addiction =
-                addiction + (1 - addiction) / upgrade.addictions[upgrade.actualLevel];
-
-        // Upgrade influences
-        if (upgrade.influences.Length > upgrade.actualLevel)
-            GameManager.Instance.cigarette.influence *= upgrade.influences[upgrade.actualLevel];
-        */
 
         foreach (UpgradeData data in upgrade.upgradeData)
         {
@@ -245,6 +226,26 @@ public class UpgradeManager : MonoBehaviour
                     throw new ArgumentOutOfRangeException(nameof(data.statType));
             }
         }
+    }    
+    
+    /// <summary> 
+    /// Modify ciragette's stat, wether it's a percentage or flat 
+    /// </summary>
+    /// <param name="stat">The stat's reference, for instance, addiction</param>
+    /// <param name="data">The upgrade's data</param>
+    private void ModifyStat(ref int stat, UpgradeData data)
+    {
+        bool isPercent = data.isPercentage;
+
+        if (isPercent)
+        {
+            stat += (int)(stat * (data.skillIncreaseAmount / 100f));
+        }
+        else
+        {
+            stat += (int)data.skillIncreaseAmount;
+        }
+
     }
 
     /// <summary>
@@ -255,8 +256,6 @@ public class UpgradeManager : MonoBehaviour
     private void ModifyStat(ref float stat, UpgradeData data)
     {
         bool isPercent = data.isPercentage;
-
-        Debug.Log("before : " + stat);
 
         if (isPercent)
         {

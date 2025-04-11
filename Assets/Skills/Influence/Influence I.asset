@@ -17,12 +17,13 @@ MonoBehaviour:
     skillIncreaseAmount: 10
     isPercentage: 1
   - statType: 3
-    skillIncreaseAmount: 30
-    isPercentage: 1
+    skillIncreaseAmount: 2
+    isPercentage: 0
   isAbility: 0
   upgradeName: Influence I
   overrideDescription: 0
-  description: Influence I augmente Prix de 10%, Influence de 30%.
+  description: Influence I augmente Prix de 10%, Influence de 2 point(s).
   upgradePrerequisites: []
   tier: 0
   cost: 150
+  purchased: 0

@@ -65,7 +65,7 @@ public class Tooltip : MonoBehaviour
         this.region = region;
 
         // When the region isn't bought
-        if (this.region.addictedPopulation == 0)
+        if (!this.region.isBuyingCigarettes)
         {
             ShowRegionInfo(false);
             return;

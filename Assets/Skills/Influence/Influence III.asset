@@ -17,17 +17,18 @@ MonoBehaviour:
     skillIncreaseAmount: 10
     isPercentage: 1
   - statType: 3
-    skillIncreaseAmount: 90
-    isPercentage: 1
+    skillIncreaseAmount: 10
+    isPercentage: 0
   - statType: 1
-    skillIncreaseAmount: 20
-    isPercentage: 1
+    skillIncreaseAmount: 4
+    isPercentage: 0
   isAbility: 0
   upgradeName: Influence III
   overrideDescription: 0
-  description: Influence III augmente Prix de 10%, Influence de 90%, Toxicite de
-    20%.
+  description: Influence III augmente Prix de 10%, Influence de 10 point(s), Toxicite
+    de 4 point(s).
   upgradePrerequisites:
   - {fileID: 11400000, guid: 0750883c78f7c4941bbff07ff46fda44, type: 2}
   tier: 2
   cost: 950
+  purchased: 0
