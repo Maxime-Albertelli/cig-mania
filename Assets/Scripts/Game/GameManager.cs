@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        inGameUI.SetActive(false);
+        inGameUI.SetActive(true);
         gameEndPanel.SetActive(false);
 
         foreach(Region region in regions)
@@ -103,10 +103,6 @@ public class GameManager : MonoBehaviour
 
         InvokeRepeating(nameof(GameLoop), 0, 0.5f);
     }
-
-    // The Gameloop, due to time we have to keep it.
-    // Hard to maintain because of the time
-    // Could be more optimised
 
     /// <summary>
     /// The Gameloop, for now, check every 0.5 second if a region is buying cigarette
@@ -152,8 +148,10 @@ public class GameManager : MonoBehaviour
                     
 
                     // Evolution in local population
-                    region.ApplyEvolution(newDeaths, newAddicts);                    
+                    region.ApplyEvolution(newDeaths, newAddicts);
 
+                    float addictionBonus = region.addictedPopulation * cigarette.addiction;
+                    UpdateTrustLoss(addictionBonus/1000);
                     moneyValue += (ulong)(region.addictedPopulation * cigarette.price);
                 }
 
@@ -190,6 +188,8 @@ public class GameManager : MonoBehaviour
 
         this.totalAddicted -= deaths;
         this.totalDeaths += deaths;
+
+        UpdateTrust(deaths/1000);
 
         // Clamp pour éviter les valeurs négatives
         if (totalHealthy < 0)
@@ -284,7 +284,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Apply the trust Rate on the trust Slider
+    /// Allow to change the trust rate
     /// </summary>
     /// <param name="trustRate">The trust rate to apply</param>
     private void UpdateTrustLoss(float trustRate)

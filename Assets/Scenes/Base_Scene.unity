@@ -95826,7 +95826,7 @@ PrefabInstance:
       objectReference: {fileID: 1639509850}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: trustRate
-      value: 0.1
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: chooseName
@@ -95882,7 +95882,7 @@ PrefabInstance:
       objectReference: {fileID: 2084948491}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: cigarette.toxicite
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: cigarette.toxicity
@@ -95898,7 +95898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: cigarette.influence
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: addictionUpgradePanel
@@ -103013,7 +103013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1716597851
 RectTransform:
   m_ObjectHideFlags: 0
