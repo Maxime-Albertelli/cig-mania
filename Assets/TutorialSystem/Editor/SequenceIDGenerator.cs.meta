@@ -1,9 +1,0 @@
-fileFormatVersion: 2
-guid: 4520110304c364addac0505a3b56c0aa
-AssetOrigin:
-  serializedVersion: 1
-  productId: 315072
-  packageName: Simple UI Onboarding System
-  packageVersion: 1.0
-  assetPath: Assets/TutorialSystem/Editor/SequenceIDGenerator.cs
-  uploadId: 743392

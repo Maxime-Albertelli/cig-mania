@@ -1,9 +1,0 @@
-fileFormatVersion: 2
-guid: 325543313eb9049acb6fbebc7dff3a77
-AssetOrigin:
-  serializedVersion: 1
-  productId: 315072
-  packageName: Simple UI Onboarding System
-  packageVersion: 1.0
-  assetPath: Assets/TutorialSystem/Manager/UITutorialManager.cs
-  uploadId: 743392
