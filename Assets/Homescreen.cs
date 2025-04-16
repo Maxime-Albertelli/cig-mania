@@ -14,7 +14,7 @@ public class Homescreen : MonoBehaviour
         // load other scene 
         SceneManager.LoadScene(1);
     }
-    
+
     public void QuitGame()
     {
         # if UNITY_EDITOR
