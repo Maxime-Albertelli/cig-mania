@@ -26332,7 +26332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &728642585
 Transform:
   m_ObjectHideFlags: 0
@@ -95800,6 +95800,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SouthAsia
       objectReference: {fileID: 0}
+    - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
+      propertyPath: Tutorial
+      value: 
+      objectReference: {fileID: 902871239}
     - target: {fileID: 5180012014111399982, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: inGameUI
       value: 
