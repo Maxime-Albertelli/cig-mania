@@ -80,6 +80,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
+    // The Tutorial GameObject manages the sequence of tutorial messages
+    public GameObject Tutorial;
 
     private void Start()
     {
@@ -90,6 +92,13 @@ public class GameManager : MonoBehaviour
         {
             totalHealthy += region.healthyPopulation;
             globalPopulation = totalHealthy;
+        }
+
+        // Check if a TutorialManager instance exists
+        if (TutorialManager.Instance != null)
+        {
+            // Sets the Tutorial GameObject as active if playing in tutorial mode
+            Tutorial.SetActive(TutorialManager.Instance.TutorialStatus);
         }
     }
 
