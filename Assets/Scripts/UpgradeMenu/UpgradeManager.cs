@@ -188,6 +188,13 @@ public class UpgradeManager : MonoBehaviour
             addictionDescription.text = upgrade.description;
             addictionCost.text = upgrade.cost.ToString() + "€";
         }
+
+        if (trustUpgradePanel.activeSelf)
+        {
+            trustTitle.text = upgrade.name + "\r\n_________________";
+            trustDescription.text = upgrade.description;
+            trustCost.text = upgrade.cost.ToString() + "€";
+        }
     }
 
     /// <summary>
