@@ -60118,7 +60118,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Addiction III
+  m_text: Confiance III
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a6ac5732e8eb1fa4d926f16fa5b3c56e, type: 2}
   m_sharedMaterial: {fileID: 1934376637628252124, guid: a6ac5732e8eb1fa4d926f16fa5b3c56e, type: 2}
@@ -75777,7 +75777,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Addiction II
+  m_text: Confiance II
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a6ac5732e8eb1fa4d926f16fa5b3c56e, type: 2}
   m_sharedMaterial: {fileID: 1934376637628252124, guid: a6ac5732e8eb1fa4d926f16fa5b3c56e, type: 2}
@@ -75913,7 +75913,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Addiction I
+  m_text: Confiance I
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a6ac5732e8eb1fa4d926f16fa5b3c56e, type: 2}
   m_sharedMaterial: {fileID: 1934376637628252124, guid: a6ac5732e8eb1fa4d926f16fa5b3c56e, type: 2}
