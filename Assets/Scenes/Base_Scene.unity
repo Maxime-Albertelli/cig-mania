@@ -95686,7 +95686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4703947518251172198, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: regionName
-      value: Antartique
+      value: Antarctique
       objectReference: {fileID: 0}
     - target: {fileID: 4703947518251172198, guid: 82b2153a94c5c354791324d4238781e9, type: 3}
       propertyPath: maxPopulation

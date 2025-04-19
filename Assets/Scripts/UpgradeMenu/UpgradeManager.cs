@@ -106,7 +106,7 @@ public class UpgradeManager : MonoBehaviour
     {
         // Initiate the description and title of each panel
         menuTitle.text = "Gestion des produits";
-        menuDescription.text = "Bonjour patron ! Bienvenue dans le département de R&D. Ici vous pouvez investir dans différents points de recherches.";
+        menuDescription.text = "Bonjour patron ! Bienvenue dans le département de R&D. Ici vous pouvez investir dans différents points de recherche.";
 
         priceTitle.text = "Prix\r\n_________________";
         priceDescription.text = "Bienvenue dans la gestion des prix." +
@@ -115,28 +115,28 @@ public class UpgradeManager : MonoBehaviour
         priceCost.text = "Veuillez sélectionner une amélioration";
 
         taxeTitle.text = "Taxe\r\n_________________";
-        taxeDescription.text = "Bienvenue dans la gestion des Taxes." +
+        taxeDescription.text = "Bienvenue dans la gestion des taxes." +
             "\nIci vous pouvez gérer les taxes sur vos produits !" +
-            "\nNégociez avec l'état pour une reduction de taxes";
+            "\nNégociez avec l'État pour une réduction de taxes";
         taxeCost.text = "Veuillez sélectionner une amélioration";
 
         influenceTitle.text = "Influence\r\n_________________";
         influenceDescription.text = "Bienvenue dans la gestion de l'influence." +
             "\nIci vous pouvez gérer l'influence de vos produits !" +
-            "\nPub, journaux, réseaux sociaux, influenceur, lobby, n'importe quoi pour vendre plus !";
+            "\nPubs, journaux, réseaux sociaux, influenceurs, lobbys, n'importe quoi pour vendre plus !";
         influenceCost.text = "Veuillez sélectionner une amélioration";
 
         addictionTitle.text = "Addiction\r\n_________________";
         addictionDescription.text = "Bienvenue dans la gestion de l'addiction." +
-            "\nIci vous pouvez gérer le gout de vos produits !" +
-            "\nSi on augmente la dose, le gout est meilleur, aucun risque sur la santé, n'est ce pas ?";
+            "\nIci vous pouvez gérer le goût de vos produits !" +
+            "\nSi on augmente la dose, le goût est meilleur, aucun risque sur la santé, n'est-ce pas ?";
         addictionCost.text = "Veuillez sélectionner une amélioration";
 
         trustTitle.text = "Confiance\r\n_________________";
         trustDescription.text = "Bienvenue dans la gestion de la confiance." +
-            "\nIci vous pouvez gérer l'image de la compagnie." +
-            "\nSi nos ventes sont trop aggresives, les états le remarquerait ! Avec quelques pots de vins" +
-            "\nIls se laisseront faire !";
+            "\nIci vous pouvez gérer l'image de l'entreprise." +
+            "\nSi nos ventes sont trop aggressives, les États le remarqueraient ! Avec quelques pots de vins" +
+            "\nils se laisseront faire !";
         trustCost.text = "Veuillez sélectionner une amélioration";
     }
 
