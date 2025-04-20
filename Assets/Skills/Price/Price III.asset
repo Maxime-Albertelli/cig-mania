@@ -18,12 +18,13 @@ MonoBehaviour:
     isPercentage: 1
   - statType: 3
     skillIncreaseAmount: -10
-    isPercentage: 1
+    isPercentage: 0
   isAbility: 0
   upgradeName: Price III
   overrideDescription: 0
-  description: Price III augmente Price de 100%, Influence de -10%.
+  description: Price III augmente Prix de 100%, Influence de -10 point(s).
   upgradePrerequisites:
   - {fileID: 11400000, guid: fd003ffc90f8ae04091a9ab729d7d954, type: 2}
   tier: 2
   cost: 2000
+  purchased: 0

@@ -18,16 +18,17 @@ MonoBehaviour:
     isPercentage: 1
   - statType: 3
     skillIncreaseAmount: -100
-    isPercentage: 1
+    isPercentage: 0
   - statType: 2
     skillIncreaseAmount: 20
     isPercentage: 1
   isAbility: 0
   upgradeName: Taxe III
   overrideDescription: 0
-  description: Taxe III augmente Price de 150%, Influence de -100%, Addiction de
-    20%.
+  description: Taxe III augmente Prix de 150%, Influence de -100 point(s), Addiction
+    de 20%.
   upgradePrerequisites:
   - {fileID: 11400000, guid: 968f21cc902b2e24aa2b1efa2d0011a1, type: 2}
   tier: 2
   cost: 2000
+  purchased: 0

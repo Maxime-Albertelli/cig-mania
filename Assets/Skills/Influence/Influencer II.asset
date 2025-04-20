@@ -15,14 +15,15 @@ MonoBehaviour:
   upgradeData:
   - statType: 3
     skillIncreaseAmount: 60
-    isPercentage: 1
+    isPercentage: 0
   - statType: 4
     skillIncreaseAmount: -0.05
     isPercentage: 0
   isAbility: 0
   upgradeName: Influencer II
   overrideDescription: 0
-  description: Influencer II augmente Influence de 60%, Confiance de -0,05 point(s).
+  description: Influencer II augmente Influence de 60 point(s), Confiance de -0,05
+    point(s).
   upgradePrerequisites:
   - {fileID: 11400000, guid: a41c01e98baac9b41b992a4581e3735a, type: 2}
   tier: 2

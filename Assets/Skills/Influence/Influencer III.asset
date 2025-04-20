@@ -15,14 +15,15 @@ MonoBehaviour:
   upgradeData:
   - statType: 3
     skillIncreaseAmount: 250
-    isPercentage: 1
+    isPercentage: 0
   - statType: 4
     skillIncreaseAmount: -0.1
     isPercentage: 0
   isAbility: 0
   upgradeName: Influencer III
   overrideDescription: 0
-  description: Influencer III augmente Influence de 250%, Confiance de -0,1 point(s).
+  description: Influencer III augmente Influence de 250 point(s), Confiance de -0,1
+    point(s).
   upgradePrerequisites:
   - {fileID: 11400000, guid: fa92ba92348dd894289445fc21e0549d, type: 2}
   tier: 3

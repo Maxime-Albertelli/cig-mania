@@ -21,12 +21,14 @@ MonoBehaviour:
     isPercentage: 1
   - statType: 1
     skillIncreaseAmount: 2
-    isPercentage: 1
+    isPercentage: 0
   isAbility: 0
   upgradeName: Addiction II
   overrideDescription: 0
-  description: Addiction II augmente Addiction de 25%, Prix de 5%, Toxicite de 2%.
+  description: Addiction II augmente Addiction de 25%, Prix de 5%, Toxicite de 2
+    point(s).
   upgradePrerequisites:
   - {fileID: 11400000, guid: 81b386cb2712ae247a37f2e5a5c367b7, type: 2}
   tier: 1
   cost: 600
+  purchased: 0

@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
                     region.ApplyEvolution(newDeaths, newAddicts);
 
                     float addictionBonus = region.addictedPopulation * cigarette.addiction;
-                    UpdateTrustLoss(addictionBonus/1000);
+                    UpdateTrustLoss(addictionBonus/10000);
                     moneyValue += (ulong)(region.addictedPopulation * cigarette.price);
                 }
 

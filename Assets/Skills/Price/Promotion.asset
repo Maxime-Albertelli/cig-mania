@@ -18,11 +18,11 @@ MonoBehaviour:
     isPercentage: 1
   - statType: 3
     skillIncreaseAmount: 30
-    isPercentage: 1
+    isPercentage: 0
   isAbility: 0
   upgradeName: Promotion
   overrideDescription: 0
-  description: Promotion augmente Prix de 20%, Influence de 30%.
+  description: Promotion augmente Prix de 20%, Influence de 30 point(s).
   upgradePrerequisites: []
   tier: 1
   cost: 1000

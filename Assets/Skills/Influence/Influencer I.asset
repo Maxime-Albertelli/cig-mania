@@ -15,11 +15,11 @@ MonoBehaviour:
   upgradeData:
   - statType: 3
     skillIncreaseAmount: 20
-    isPercentage: 1
+    isPercentage: 0
   isAbility: 0
   upgradeName: Influencer I
   overrideDescription: 0
-  description: Influencer I augmente Influence de 20%.
+  description: Influencer I augmente Influence de 20 point(s).
   upgradePrerequisites:
   - {fileID: 11400000, guid: 94f140c4ef1c14e4a9bb9813d9edc805, type: 2}
   tier: 1

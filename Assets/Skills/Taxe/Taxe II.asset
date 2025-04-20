@@ -18,12 +18,13 @@ MonoBehaviour:
     isPercentage: 1
   - statType: 3
     skillIncreaseAmount: -30
-    isPercentage: 1
+    isPercentage: 0
   isAbility: 0
   upgradeName: Taxe II
   overrideDescription: 0
-  description: Taxe II augmente Price de 75%, Influence de -30%.
+  description: Taxe II augmente Prix de 75%, Influence de -30 point(s).
   upgradePrerequisites:
   - {fileID: 11400000, guid: 46b0101d0b25bd84eb991bad8a88ab9e, type: 2}
   tier: 1
   cost: 1700
+  purchased: 0
