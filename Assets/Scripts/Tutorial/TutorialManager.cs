@@ -6,19 +6,22 @@ public class TutorialManager : MonoBehaviour
     // Using a static class member means its value will be shared across all instances of this class
     public static TutorialManager Instance;
     // The TutorialStatus variable stores the player's choice regarding tutorial mode
-    public bool TutorialStatus;
+    public bool TutorialStatus = false;
 
     // Awake is called as soon as the object is created
     private void Awake()
     {
         // Ensure that only a single instance of the TutorialManager class can exist
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
             return;
         }
-
-        Instance = this;
+        else
+        {
+            Instance = this;
+        }
+     
         // Ensure that the GameObject is preserved when loading a new scene
         DontDestroyOnLoad(gameObject);
     }

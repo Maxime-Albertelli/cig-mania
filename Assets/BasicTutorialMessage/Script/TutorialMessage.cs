@@ -24,7 +24,7 @@ namespace BasicTutorialMessage
         // you can register to this event to know if ok button is pressed and the message is closed
         public EventHandler OnMessageClosed;
 
-        [Header("Resoureces")]
+        [Header("Resources")]
         [SerializeField] private TextMeshProUGUI tutorialText;
         [SerializeField] private RectTransform background;
         [SerializeField] private RectTransform wrapper;

@@ -66,22 +66,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameEndScreen gameEndScreen;
 
     [Tooltip("Total of all the dead people")]
-    public long totalDeaths = 0;
+    [SerializeField] private long totalDeaths = 0;
     [Tooltip("Total of all the addicted people")]
-    public long totalAddicted = 0;
+    [SerializeField] private long totalAddicted = 0;
     [Tooltip("Total of all the healthy people")]
-    public long totalHealthy = 0;
+    [SerializeField] private long totalHealthy = 0;
     [Tooltip("Total of all people")]
-    public long globalPopulation = 0;
+    [SerializeField] private long globalPopulation = 0;
 
     private string name;
 
-    public float time = 0f;
+    private float time = 0f;
 
     public static GameManager Instance { get; private set; }
 
     // The Tutorial GameObject manages the sequence of tutorial messages
     public GameObject Tutorial;
+
+    [SerializeField] private GameState gameState = GameState.Home;
+
 
     private void Start()
     {
@@ -95,14 +98,19 @@ public class GameManager : MonoBehaviour
         }
 
         // Check if a TutorialManager instance exists
-        if (TutorialManager.Instance != null)
+        if (TutorialManager.Instance.TutorialStatus)
         {
             // Sets the Tutorial GameObject as active if playing in tutorial mode
             Tutorial.SetActive(TutorialManager.Instance.TutorialStatus);
+            gameState = GameState.Tuto;
+        }
+        else
+        {
+            gameState = GameState.Playing;
         }
     }
 
-    public void StartGame()
+    public void SetupGame()
     {
         Instance = this;
         chooseName.SetActive(false);
@@ -110,6 +118,14 @@ public class GameManager : MonoBehaviour
         this.name = nameField.text;
         nameText.text = this.name;
 
+        if(gameState == GameState.Playing)
+        {
+            StartGame();
+        }
+    }
+
+    public void StartGame()
+    {
         InvokeRepeating(nameof(GameLoop), 0, 0.5f);
     }
 
@@ -376,4 +392,9 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void SetGameState(GameState newState)
+    {
+        this.gameState = newState;
+    }
 }
