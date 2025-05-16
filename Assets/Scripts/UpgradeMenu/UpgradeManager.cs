@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
@@ -101,7 +102,7 @@ public class UpgradeManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
- 
+
     private void Start()
     {
         // Initiate the description and title of each panel
@@ -146,12 +147,7 @@ public class UpgradeManager : MonoBehaviour
     /// <param name="upgrade"></param>
     public void SelectUpgrade(UpgradeSO upgrade)
     {
-        if (PreReqsMet(upgrade))
-        {
-            currentUpgrade = upgrade;
-            //UnlockUpgrade(upgrade);
-        }
-
+        currentUpgrade = upgrade;
         ChangeDescription(upgrade);
     }
 
@@ -233,8 +229,8 @@ public class UpgradeManager : MonoBehaviour
                     throw new ArgumentOutOfRangeException(nameof(data.statType));
             }
         }
-    }    
-    
+    }
+
     /// <summary> 
     /// Modify ciragette's stat, wether it's a percentage or flat 
     /// </summary>
@@ -273,7 +269,7 @@ public class UpgradeManager : MonoBehaviour
             stat += data.skillIncreaseAmount;
         }
 
-    }    
+    }
 
     /// <summary>
     /// Verify if the upgrade is already obtained
@@ -298,6 +294,7 @@ public class UpgradeManager : MonoBehaviour
         if (!upgrade.purchased)
         {
             preReqsMet = upgrade.upgradePrerequisites.Count == 0 || upgrade.upgradePrerequisites.All(unlockedUpgrade.Contains);
+            Debug.Log("Pre requis : " + preReqsMet);
         }
         return preReqsMet;
     }
@@ -336,8 +333,9 @@ public class UpgradeManager : MonoBehaviour
         upgrade.purchased = true;
         unlockedUpgrade.Add(upgrade);
         GameManager.Instance.moneyValue -= (ulong)upgrade.cost;
-        //upgrade.GameObject().GetComponent<Button>();
+        GameObject.Find(upgrade.name).GetComponent<Button>().interactable = false;
         Debug.Log("Skill obtained : " + upgrade.name);
+
         SoundManager.PlaySound(SoundType.UPGRADE);
     }
 
@@ -347,7 +345,7 @@ public class UpgradeManager : MonoBehaviour
     /// </summary>
     public void ResetUpgradeList()
     {
-        foreach(UpgradeSO upgrade in unlockedUpgrade)
+        foreach (UpgradeSO upgrade in unlockedUpgrade)
         {
             upgrade.purchased = false;
         }
