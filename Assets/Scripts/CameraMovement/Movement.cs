@@ -29,16 +29,15 @@ namespace CameraMovement
         {
             if (Input.touchCount != 2) return;
 
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
 
-            var touchZero = Input.GetTouch(0);
-            var touchOne = Input.GetTouch(1);
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
-            var touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
-            var touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
-
-            var prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-            var touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
-            var deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+            float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
+            float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
             //Zoom
             if (_camera.orthographic)
@@ -53,7 +52,7 @@ namespace CameraMovement
             }
 
             //Move
-            var delta = touchZero.deltaPosition + touchOne.deltaPosition;
+            Vector2 delta = touchZero.deltaPosition + touchOne.deltaPosition;
             transform.position += new Vector3(-delta.x, -delta.y, 0) * moveSpeed;
         }
 

@@ -124,6 +124,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// It start the gameloop using an InvokeRepeating of GameLoop
+    /// </summary>
     public void StartGame()
     {
         InvokeRepeating(nameof(GameLoop), 0, 0.5f);

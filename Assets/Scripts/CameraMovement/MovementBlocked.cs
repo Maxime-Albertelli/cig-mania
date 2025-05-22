@@ -7,10 +7,16 @@ namespace CameraMovement
     /// </summary>
     public class MovementBlocked : Movement
     {
+        [Header("Movement properties")]
+        [Tooltip("Maximum Y position")]
         [SerializeField] private float positionYMax = 5f;
+        [Tooltip("Minimum Y position")]
         [SerializeField] private float positionYMin = -5f;
+        [Tooltip("X limit")]
         [SerializeField] private float limitX = 10f;
+
         private Camera _cam;
+
         private new void Start()
         {
             base.Start();
@@ -38,8 +44,8 @@ namespace CameraMovement
 
         private void Limit()
         {
-            var zoom = new Vector2(_cam.orthographicSize * _cam.aspect, _cam.orthographicSize);
-            var pos = transform.position;
+            Vector2 zoom = new Vector2(_cam.orthographicSize * _cam.aspect, _cam.orthographicSize);
+            Vector3 pos = transform.position;
             if (pos.y > positionYMax - zoom.y)
                 pos.y = positionYMax - zoom.y;
             else if (pos.y < positionYMin + zoom.y) pos.y = positionYMin + zoom.y;

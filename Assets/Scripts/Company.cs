@@ -2,6 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Informations about company
+/// unused
 /// </summary>
 public class Company : MonoBehaviour
 {

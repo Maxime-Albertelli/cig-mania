@@ -45,6 +45,10 @@ public class Region : MonoBehaviour
         healthyPopulation = maxPopulation - addictedPopulation;
     }
 
+    /// <summary>
+    /// Update the visual of this region based on addict population
+    /// more addict means a region with a color more red
+    /// </summary>
     public void UpdateVisuals()
     {
         float percentage = (float)addictedPopulation / maxPopulation;

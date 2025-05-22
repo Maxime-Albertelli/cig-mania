@@ -46,11 +46,17 @@ public class Tooltip : MonoBehaviour
         UpdateHealthyPopulation();
     }
 
+    /// <summary>
+    /// Activate the gameobject
+    /// </summary>
     public void Show()
     {
         gameObject.SetActive(true);
     }
-
+    
+    /// <summary>
+    /// Hide the gameobject
+    /// </summary>
     public void Hide()
     {
         gameObject.SetActive(false);
@@ -109,6 +115,9 @@ public class Tooltip : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update the dead population value in the UI
+    /// </summary>
     private void UpdateDeadPopulation()
     {
         deadPopulation.text =
@@ -117,6 +126,9 @@ public class Tooltip : MonoBehaviour
         deadPopulationSlider.maxValue = region.GetMaxPopulation();
     }
 
+    /// <summary>
+    /// Update the healthy population value in the UI
+    /// </summary>
     private void UpdateHealthyPopulation()
     {
         healthyPopulation.text =
@@ -125,6 +137,10 @@ public class Tooltip : MonoBehaviour
         healthyPopulationSlider.maxValue = region.GetMaxPopulation();
     }
 
+
+    /// <summary>
+    /// Update the addict population value in the UI
+    /// </summary>
     private void UpdateAddictedPopulation()
     {
         addictedPopulation.text =
@@ -132,7 +148,12 @@ public class Tooltip : MonoBehaviour
         addictedPopulationSlider.value = region.addictedPopulation;
         addictedPopulationSlider.maxValue = region.GetMaxPopulation();
     }
-    
+
+    /// <summary>
+    /// Check if the user can unlock the region,
+    /// if yes, buy the region and start with a single addict.
+    /// need refactor
+    /// </summary>    
     public void UnlockRegion()
     {
         ulong cost = (ulong)region.GetMaxPopulation() / 1000;
